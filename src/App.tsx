@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 
 export type FilterValueType = 'all' | 'active' | 'completed'
 
-type TodolistsType = {
+export type TodolistsType = {
     id: string
     title: string
     filter: FilterValueType
@@ -66,8 +66,7 @@ function App() {
     }
     const addTodolist = (title: string) => {
         let newTodolistID1 = v1()
-        let newTodolist: TodolistsType = {id: newTodolistID1, title: title, filter: 'all'}
-        setTodolists([newTodolist, ...todolists])
+        setTodolists([{id: newTodolistID1, title: title, filter: 'all'}, ...todolists])
         setTasks({...tasks, [newTodolistID1]: []})
     }
     const updateTodolist = (updateTitle: string, todolistId: string) => {
