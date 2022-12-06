@@ -1,13 +1,14 @@
 import {FilterValueType, TodolistsType} from "../App";
 import {v1} from "uuid";
 
-type RemoveTodolistActionType = {
+export type RemoveTodolistActionType = {
     type: 'REMOVE-TODOLIST'
     id: string
 }
-type AddTodolistActionType = {
+export type AddTodolistActionType = {
     type: 'ADD-TODOLIST'
     title: string
+    todolistId: string
 }
 type ChangeTodolistTitleActionType = {
     type: 'CHANGE-TODOLIST-TITLE'
@@ -28,7 +29,7 @@ export const todolistsReducer = (state = initialState, action: ActionType): Arra
         case 'REMOVE-TODOLIST':
             return state.filter(tl => tl.id !== action.id)
         case 'ADD-TODOLIST':
-            return [ ...state,{id: v1(), title: action.title, filter: 'all'}]
+            return [ ...state,{id: action.todolistId, title: action.title, filter: 'all'}]
         case 'CHANGE-TODOLIST-TITLE':
             return state.map(tl => tl.id === action.id ? {...tl, title: action.title} : tl)
         case 'CHANGE-TODOLIST-FILTER':
@@ -40,28 +41,14 @@ export const todolistsReducer = (state = initialState, action: ActionType): Arra
 }
 
 export const removeTodolistAC = (todolistId: string): RemoveTodolistActionType => {
-    return {
-        type: 'REMOVE-TODOLIST',
-        id: todolistId
-    } as const
+    return {type: 'REMOVE-TODOLIST', id: todolistId} as const
 }
 export const addTodolistAC = (title: string): AddTodolistActionType => {
-    return {
-        type: 'ADD-TODOLIST',
-        title: title
-    } as const
+    return {type: 'ADD-TODOLIST', title: title, todolistId: v1()} as const
 }
 export const changeTodolistTitleAC = (todolistId: string, title: string): ChangeTodolistTitleActionType =>{
-    return {
-        type: 'CHANGE-TODOLIST-TITLE',
-        id: todolistId,
-        title: title
-    }as const
+    return {type: 'CHANGE-TODOLIST-TITLE', id: todolistId, title: title}as const
 }
 export const changeTodolistFilterAC =(todolistId: string, filter: FilterValueType): ChangeTodolistFilterActionType => {
-    return {
-        type: 'CHANGE-TODOLIST-FILTER',
-        id: todolistId,
-        filter: filter
-    }as const
+    return {type: 'CHANGE-TODOLIST-FILTER', id: todolistId, filter: filter}as const
 }

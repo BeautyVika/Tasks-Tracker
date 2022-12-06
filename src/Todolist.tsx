@@ -53,7 +53,6 @@ const Todolist = (props: TodolistPropsType) => {
                 <IconButton aria-label="delete" onClick={removeTodolistHandler}>
                     <DeleteIcon />
                 </IconButton>
-                {/*<button onClick={removeTodolistHandler}>✖</button>*/}
             </h3>
             <AddItemForm addTask={addTask}/>
             <ul>
@@ -66,10 +65,8 @@ const Todolist = (props: TodolistPropsType) => {
                     }
 
                     return <li key={t.id} className={t.isDone ? 'is-done' : ''}>
-                        {/*<input type="checkbox" checked={t.isDone} onChange={onChangeHandler}/>*/}
                         <Checkbox checked={t.isDone} onChange={onChangeHandler} />
                         <EditableSpan title={t.title} callback={(updateTitle: string) => updateTaskHandler(updateTitle, t.id)}/>
-                        {/*<button onClick={onClickHandler}>✖</button>*/}
                         <IconButton aria-label="delete" onClick={onClickHandler}>
                             <DeleteIcon />
                         </IconButton>
@@ -93,9 +90,6 @@ const Todolist = (props: TodolistPropsType) => {
                         onClick={onCompletedClickHandler}>
                     Completed
                 </Button>
-                {/*<button className={props.filter === 'all' ? 'active-filter' : ''} onClick={onAllClickHandler}>All</button>*/}
-                {/*<button className={props.filter === 'active' ? 'active-filter' : ''} onClick={onActiveClickHandler}>Active</button>*/}
-                {/*<button className={props.filter === 'completed' ? 'active-filter' : ''} onClick={onCompletedClickHandler}>Completed</button>*/}
             </div>
         </div>
     )

@@ -15,7 +15,7 @@ export type TodolistsType = {
     title: string
     filter: FilterValueType
 }
-type TaskStateType = {
+export type TaskStateType = {
     [key: string]: Array<TaskType>
 }
 
@@ -89,11 +89,10 @@ function App() {
                         if (todolist.filter === 'completed') {
                             tasksForTodoList = tasks[todolist.id].filter(t => t.isDone)
                         }
-                        return <Grid item={true}>
+                        return <Grid item={true} key={todolist.id}>
                             <Paper style={{padding: '10px'}}>
                                 <Todolist title={todolist.title}
                                           id={todolist.id}
-                                          key={todolist.id}
                                           tasks={tasksForTodoList}
                                           filter={todolist.filter}
                                           addTask={addTask}

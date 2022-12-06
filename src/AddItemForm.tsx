@@ -30,10 +30,6 @@ const AddItemForm = (props: AddItemFormPropsType) => {
     }
    return (
        <div>
-           {/*<input value={title}*/}
-           {/*       className={error ? 'error' : ''}*/}
-           {/*       onChange={onChangeHandler}*/}
-           {/*       onKeyDown={onKeyPressHandler}/>*/}
            <TextField id="outlined-basic"
                       label={error ? 'Title is required' : 'type your text...'}
                       variant="outlined"
@@ -48,7 +44,6 @@ const AddItemForm = (props: AddItemFormPropsType) => {
                    onClick={addTask}>
                +
            </Button>
-           {/*<button onClick={addTask}>+</button>*/}
            {/*{error && <div className={'error-message'}>{error}</div>}*/}
        </div>
    )
