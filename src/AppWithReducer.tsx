@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useReducer, Reducer} from 'react';
 import './App.css';
 import Todolist, {TaskType} from "./Todolist";
 import {v1} from "uuid";
@@ -11,10 +11,17 @@ import {
     addTodolistAC,
     changeTodolistFilterAC,
     changeTodolistTitleAC,
-    removeTodolistAC,
+    removeTodolistAC, TodolistsActionType,
     todolistsReducer
 } from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
+import {
+    addTaskAC,
+    changeTaskStatusAC,
+    changeTaskTitleAC,
+    removeTaskAC,
+    TasksActionType,
+    tasksReducer
+} from "./state/tasks-reducer";
 
 export type FilterValueType = 'all' | 'active' | 'completed'
 
@@ -27,18 +34,19 @@ export type TaskStateType = {
     [key: string]: Array<TaskType>
 }
 
+
 function AppWithReducer() {
 
     let todolistID1 = v1()
     let todolistID2 = v1()
 
-    let [todolists, dispatchTodolists] = useReducer(todolistsReducer, [
+    let [todolists, dispatchTodolists] = useReducer<Reducer<Array<TodolistsType>, TodolistsActionType>>(todolistsReducer, [
         {id: todolistID1, title: 'What to learn', filter: 'all'},
         {id: todolistID2, title: 'What to buy', filter: 'all'},
     ])
 
 
-    let [tasks, dispatchTasks] = useReducer(tasksReducer, {
+    let [tasks, dispatchTasks] = useReducer<Reducer<TaskStateType, TasksActionType>>(tasksReducer, {
         [todolistID1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
             {id: v1(), title: 'JS', isDone: true},
