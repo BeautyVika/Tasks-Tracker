@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, memo, useCallback} from 'react';
 import {FilterValueType} from "./App";
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
@@ -27,25 +27,38 @@ type TodolistPropsType = {
     changeTaskStatus: (taskId: string, newStatus: boolean, todolistId: string) => void
 }
 
-const Todolist = (props: TodolistPropsType) => {
+const Todolist = memo((props: TodolistPropsType) => {
 
-    const addTask = (title: string) => {
+    console.log('Todolist')
+
+    const addTask = useCallback((title: string) => {
         props.addTask(title, props.id)
-    }
+    }, [props.addTask, props.id])
 
-    const onAllClickHandler = () => props.changeFilter('all', props.id)
-    const onActiveClickHandler = () => props.changeFilter('active', props.id)
-    const onCompletedClickHandler = () => props.changeFilter('completed', props.id)
+    const onAllClickHandler = useCallback(() => props.changeFilter('all', props.id), [props.changeFilter, props.id])
+    const onActiveClickHandler = useCallback(() => props.changeFilter('active', props.id), [props.changeFilter, props.id])
+    const onCompletedClickHandler = useCallback(() => props.changeFilter('completed', props.id), [props.changeFilter, props.id])
 
     const removeTodolistHandler = () => {
         props.removeTodolist(props.id)
     }
-    const updateTodolistHandler = (title: string) => {
+    const updateTodolistHandler = useCallback((title: string) => {
         props.updateTodolist(title, props.id)
-    }
+    }, [props.updateTodolist, props.id])
+
     const updateTaskHandler = (updateTitle: string, taskId: string) => {
         props.updateTask(updateTitle, taskId, props.id)
     }
+
+    let tasks = props.tasks
+
+    if (props.filter === 'active') {
+        tasks = tasks.filter(t => !t.isDone)
+    }
+    if (props.filter === 'completed') {
+        tasks = tasks.filter(t => t.isDone)
+    }
+
     return (
         <div>
             <h3>
@@ -56,7 +69,7 @@ const Todolist = (props: TodolistPropsType) => {
             </h3>
             <AddItemForm addTask={addTask}/>
             <ul>
-                {props.tasks.map((t) => {
+                {tasks.map((t) => {
                     const onClickHandler = () => {
                         props.removeTask(t.id, props.id)
                     }
@@ -74,25 +87,39 @@ const Todolist = (props: TodolistPropsType) => {
                 })}
             </ul>
             <div>
-                <Button variant={props.filter === 'all' ? "outlined" : "contained"}
-                        size="small"
-                        onClick={onAllClickHandler}>
-                    All
-                </Button>
-                <Button variant={props.filter === 'active' ? "outlined" : "contained"}
-                        size="small"
-                        onClick={onActiveClickHandler}>
-                    Active
-                </Button>
-                <Button variant={props.filter === 'completed' ? "outlined" : "contained"}
-                        color="error"
-                        size="small"
-                        onClick={onCompletedClickHandler}>
-                    Completed
-                </Button>
+                <ButtonWithMemo variant={props.filter === 'all' ? "outlined" : "contained"}
+                                size={"small"}
+                                onClick={onAllClickHandler}
+                                title={'All'}/>
+                <ButtonWithMemo variant={props.filter === 'active' ? "outlined" : "contained"}
+                                size={"small"}
+                                onClick={onActiveClickHandler}
+                                title={'Active'}/>
+                <ButtonWithMemo variant={props.filter === 'completed' ? "outlined" : "contained"}
+                                color="error"
+                                size={"small"}
+                                onClick={onCompletedClickHandler}
+                                title={'Completed'}/>
             </div>
         </div>
     )
-}
+})
 
 export default Todolist
+
+type ButtonWithMemo = {
+    variant: "outlined" | "contained"
+    size: "small"
+    color?: "error"
+    onClick: () => void
+    title: string
+}
+
+const ButtonWithMemo = memo((props: ButtonWithMemo) => {
+    return <Button variant={props.variant}
+                   color={props.color}
+                   size={props.size}
+                   onClick={props.onClick}>
+        {props.title}
+    </Button>
+})
