@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import Task from "./Task";
 
 export type TaskType = {
     id: string
@@ -46,10 +47,6 @@ const Todolist = memo((props: TodolistPropsType) => {
         props.updateTodolist(title, props.id)
     }, [props.updateTodolist, props.id])
 
-    const updateTaskHandler = (updateTitle: string, taskId: string) => {
-        props.updateTask(updateTitle, taskId, props.id)
-    }
-
     let tasks = props.tasks
 
     if (props.filter === 'active') {
@@ -58,6 +55,13 @@ const Todolist = memo((props: TodolistPropsType) => {
     if (props.filter === 'completed') {
         tasks = tasks.filter(t => t.isDone)
     }
+
+    const updateTask = useCallback((updateTitle: string, taskId: string) => props.updateTask(updateTitle, taskId, props.id),[props.updateTask, props.id])
+
+    const removeTask = useCallback((taskId: string) => props.removeTask(taskId, props.id),[props.removeTask, props.id])
+
+    const changeTaskStatus = useCallback((taskId: string, status: boolean) => props.changeTaskStatus(taskId, status, props.id),[props.changeTaskStatus, props.id])
+
 
     return (
         <div>
@@ -68,23 +72,15 @@ const Todolist = memo((props: TodolistPropsType) => {
                 </IconButton>
             </h3>
             <AddItemForm addTask={addTask}/>
+
             <ul>
                 {tasks.map((t) => {
-                    const onClickHandler = () => {
-                        props.removeTask(t.id, props.id)
-                    }
-                    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                        props.changeTaskStatus(t.id, e.currentTarget.checked, props.id)
-                    }
 
-                    return <li key={t.id} className={t.isDone ? 'is-done' : ''}>
-                        <Checkbox checked={t.isDone} onChange={onChangeHandler} />
-                        <EditableSpan title={t.title} callback={(updateTitle: string) => updateTaskHandler(updateTitle, t.id)}/>
-                        <IconButton aria-label="delete" onClick={onClickHandler}>
-                            <DeleteIcon />
-                        </IconButton>
-                    </li>
-                })}
+                    return <Task task={t}
+                                 key={t.id }
+                                 removeTask={removeTask}
+                                 updateTask={updateTask}
+                                 changeTaskStatus={changeTaskStatus}/>})}
             </ul>
             <div>
                 <ButtonWithMemo variant={props.filter === 'all' ? "outlined" : "contained"}
