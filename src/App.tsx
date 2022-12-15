@@ -12,7 +12,7 @@ import {
     changeTodolistTitleAC,
     removeTodolistAC,
 } from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {addTaskAC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 
@@ -34,10 +34,6 @@ function App() {
 
     const dispatch = useDispatch()
 
-    const removeTask = useCallback((taskId: string, todolistId: string) => {
-        dispatch(removeTaskAC(taskId, todolistId))
-    }, [dispatch])
-
     const changeFilter = useCallback((value: FilterValueType, todoListId: string) => {
         dispatch(changeTodolistFilterAC(todoListId, value))
     }, [dispatch])
@@ -46,13 +42,6 @@ function App() {
         dispatch(addTaskAC(newTitle, todolistId))
     }, [dispatch])
 
-    const changeTaskStatus = useCallback((taskId: string, newStatus: boolean, todolistId: string) => {
-        dispatch(changeTaskStatusAC(taskId, newStatus, todolistId))
-    }, [dispatch])
-
-    const updateTask = useCallback((updateTitle: string, taskId: string, todolistId: string) => {
-        dispatch(changeTaskTitleAC(updateTitle, taskId, todolistId))
-    }, [dispatch])
 
     const removeTodolist = useCallback((todolistId: string) => {
         dispatch(removeTodolistAC(todolistId))
@@ -83,12 +72,9 @@ function App() {
                                           tasks={tasks[todolist.id]}
                                           filter={todolist.filter}
                                           addTask={addTask}
-                                          removeTask={removeTask}
                                           removeTodolist={removeTodolist}
                                           changeFilter={changeFilter}
-                                          updateTask={updateTask}
-                                          updateTodolist={updateTodolist}
-                                          changeTaskStatus={changeTaskStatus}/>
+                                          updateTodolist={updateTodolist}/>
                             </Paper>
                         </Grid>
                     })}
