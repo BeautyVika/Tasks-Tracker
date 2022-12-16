@@ -25,8 +25,8 @@ type TodolistPropsType = {
 }
 
 const Todolist = memo((props: TodolistPropsType) => {
-
-    console.log('Todolist')
+    //получение тасок todolist
+    // const tasksTl = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.id])
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id)

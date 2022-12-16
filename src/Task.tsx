@@ -7,11 +7,17 @@ import {TaskType} from "./Todolist";
 import {useDispatch} from "react-redux";
 import {changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 
+
 export type TaskPropsType = {
     task: TaskType
     todolistId: string
 }
 const Task = memo(({task, todolistId}: TaskPropsType) => {
+
+     // получение таски, 1 способ
+    // const taskTl = useSelector<AppRootStateType,TaskType>(state => state.tasks[todolistId].filter(t => t.id === task.id)[0])
+    // получение таски, 2 способ
+    // const taskTl = useSelector<AppRootStateType, TaskType>(state => state.tasks[todolistId].find(t => t.id === task.id) as TaskType)
 
     const dispatch = useDispatch()
 
