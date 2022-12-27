@@ -130,12 +130,12 @@ function AppWithReducer() {
                                           tasks={tasksForTodoList}
                                           filter={todolist.filter}
                                           addTask={addTask}
-                                          removeTask={removeTask}
                                           removeTodolist={removeTodolist}
                                           changeFilter={changeFilter}
-                                          updateTask={updateTask}
-                                          updateTodolist={updateTodolist}
-                                          changeTaskStatus={changeTaskStatus}/>
+                                          updateTodolist={updateTodolist}/>
+                                          {/*// updateTask={updateTask}*/}
+                                          {/*// removeTask={removeTask}*/}
+                                          {/*// changeTaskStatus={changeTaskStatus}*/}
                             </Paper>
                         </Grid>
                     })}
