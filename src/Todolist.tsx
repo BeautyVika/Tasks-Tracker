@@ -1,32 +1,33 @@
-import React, {memo, useCallback} from 'react';
-import {FilterValueType} from "./App";
+import React, {memo, useCallback, useEffect} from 'react';
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Task from "./Task";
 import SuperButton from "./SuperButton";
-
-export type TaskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
+import {FilterValuesType} from "./state/todolists-reducer";
+import {TaskStatuses, TaskType} from "./api/todolist-api";
+import {AppDispatch} from "./state/store";
+import {getTaskTC} from "./state/tasks-reducer";
 
 type TodolistPropsType = {
     id: string
     title: string
-    filter: FilterValueType
+    filter: FilterValuesType
     tasks: Array<TaskType>
     addTask: (newTitle: string, todolistId: string) => void
     removeTodolist: (todolistId: string) => void
-    changeFilter: (value: FilterValueType, todoListId: string) => void
+    changeFilter: (value: FilterValuesType, todoListId: string) => void
     updateTodolist: (updateTitle: string, todolistId: string) => void
 }
 
 const Todolist = memo((props: TodolistPropsType) => {
     //получение тасок todolist
     // const tasksTl = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.id])
+    const dispatch = AppDispatch()
+    useEffect(() => {
+        dispatch(getTaskTC(props.id))
+    }, [])
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id)
@@ -46,10 +47,10 @@ const Todolist = memo((props: TodolistPropsType) => {
     let tasks = props.tasks
 
     if (props.filter === 'active') {
-        tasks = tasks.filter(t => !t.isDone)
+        tasks = tasks.filter(t => t.status === TaskStatuses.New)
     }
     if (props.filter === 'completed') {
-        tasks = tasks.filter(t => t.isDone)
+        tasks = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
 
     return (
@@ -64,7 +65,6 @@ const Todolist = memo((props: TodolistPropsType) => {
 
             <ul>
                 {tasks.map((t) => {
-
                     return <Task task={t}
                                  todolistId={props.id}
                                  key={t.id}/>
