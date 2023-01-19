@@ -21,9 +21,9 @@ const EditableSpan = memo((props: EditableSpanPropsType) => {
         edit && addTask()
     }
     return (
-       edit
-        ? <input value={updateTitle} onChange={onChangeHandler} onBlur={onDoubleClickHandler} autoFocus/>
-        : <span onDoubleClick={onDoubleClickHandler}>{props.title}</span>
+        edit
+            ? <input value={updateTitle} onChange={onChangeHandler} onBlur={onDoubleClickHandler} autoFocus/>
+            : <span onDoubleClick={onDoubleClickHandler}>{props.title}</span>
     )
 })
 
