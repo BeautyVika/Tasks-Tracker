@@ -24,6 +24,14 @@ type UpdateTaskActionType = {
     todolistId: string
     model: UpdateDomainTaskModelType
 }
+export type UpdateDomainTaskModelType = {
+    title?: string
+    description?: string
+    status?: TaskStatuses
+    priority?: TaskPriorities
+    startDate?: string
+    deadline?: string
+}
 
 const initialState: TaskStateType = {}
 export type TasksActionType = RemoveTaskActionType | AddTaskActionType
@@ -106,14 +114,6 @@ export const removeTaskTC = (todoId: string, taskId: string) => (dispatch: Dispa
         .then((res)=> {
             dispatch(removeTaskAC(taskId,todoId))
         })
-}
-type UpdateDomainTaskModelType = {
-    title?: string
-    description?: string
-    status?: TaskStatuses
-    priority?: TaskPriorities
-    startDate?: string
-    deadline?: string
 }
 export const updateTaskTC = (todoId: string, taskId: string, domainModel: UpdateDomainTaskModelType) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
