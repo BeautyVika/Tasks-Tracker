@@ -6,10 +6,12 @@ import {tasksReducer} from "../features/todolistsList/tasks-reducer";
 import {todolistsReducer} from "../features/todolistsList/todolists-reducer";
 import {AppRootStateType} from "./store";
 import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
+import {appReducer} from "./app-reducer";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
-    todolists: todolistsReducer
+    todolists: todolistsReducer,
+    app: appReducer
 })
 
 const initialGlobalState = {
@@ -32,7 +34,8 @@ const initialGlobalState = {
             {id: v1(), title: 'React Book', status: TaskStatuses.Completed, todoListId: 'todolistId2',
                 description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low}
         ]
-    }
+    },
+    app: {status: 'loading'}
 }
 
 export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState as AppRootStateType)

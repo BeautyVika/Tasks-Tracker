@@ -6,6 +6,7 @@ import {
 import {TaskPriorities, TaskStatuses, TaskType, todolistAPI, UpdateTaskModelType} from "../../api/todolist-api";
 import {Dispatch} from "redux";
 import {AppRootStateType} from "../../app/store";
+import {setStatusAC, SetStatusActionType} from "../../app/app-reducer";
 
 const initialState: TaskStateType = {}
 
@@ -51,27 +52,35 @@ export const updateTaskAC = (taskId: string, model: UpdateDomainTaskModelType, t
 
 //thunks
 export const getTaskTC = (todoId: string) => (dispatch: Dispatch) => {
+    dispatch(setStatusAC('loading'))
     todolistAPI.getTasks(todoId)
         .then((res) => {
             const tasks = res.data.items
             dispatch(setTaskAC(tasks, todoId))
+            dispatch(setStatusAC('succeeded'))
         })
 }
 export const addTaskTC = (todoId: string, title: string) => (dispatch: Dispatch) => {
+    dispatch(setStatusAC('loading'))
     todolistAPI.createTask(todoId, title)
         .then((res) => {
             const task = res.data.data.item
             dispatch(addTaskAC(task))
+            dispatch(setStatusAC('succeeded'))
         })
 }
 export const removeTaskTC = (todoId: string, taskId: string) => (dispatch: Dispatch) => {
+    dispatch(setStatusAC('loading'))
     todolistAPI.deleteTask(todoId, taskId)
         .then((res) => {
             dispatch(removeTaskAC(taskId, todoId))
+            dispatch(setStatusAC('succeeded'))
         })
 }
 export const updateTaskTC = (todoId: string, taskId: string, domainModel: UpdateDomainTaskModelType) =>
     (dispatch: Dispatch, getState: () => AppRootStateType) => {
+
+        dispatch(setStatusAC('loading'))
 
         const tasks = getState().tasks
         const task = tasks[todoId].find(t => t.id === taskId)
@@ -89,6 +98,7 @@ export const updateTaskTC = (todoId: string, taskId: string, domainModel: Update
             todolistAPI.updateTask(todoId, taskId, apiModel)
                 .then((res) => {
                     dispatch(updateTaskAC(taskId, domainModel, todoId))
+                    dispatch(setStatusAC('succeeded'))
                 })
         }
     }
@@ -101,6 +111,8 @@ export type TasksActionType = ReturnType<typeof removeTaskAC>
     | SetTodolistsActionType
     | ReturnType<typeof setTaskAC>
     | ReturnType<typeof updateTaskAC>
+    | SetStatusActionType
+
 export type UpdateDomainTaskModelType = {
     title?: string
     description?: string
