@@ -37,7 +37,7 @@ export const todolistAPI = {
 }
 
 //types
-type ResponseType<T = {}> = {
+export type ResponseType<T = {}> = {
     resultCode: number
     messages: string[]
     fieldsErrors: string[]
@@ -86,4 +86,9 @@ type GetTasksResponse = {
     error: string | null
     totalCount: number
     items: []
+}
+export enum RESULT_CODE {
+    SUCCESS = 0,
+    ERROR = 1,
+    CAPTCHA = 10
 }

@@ -59,6 +59,7 @@ const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
                         <Paper style={{padding: '10px'}}>
                             <Todolist title={todolist.title}
                                       id={todolist.id}
+                                      entityStatus={todolist.entityStatus}
                                       tasks={tasks[todolist.id]}
                                       filter={todolist.filter}
                                       addTask={addTask}

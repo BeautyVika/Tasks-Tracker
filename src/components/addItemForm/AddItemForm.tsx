@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 
 type AddItemFormPropsType = {
     addTask: (newTitle: string) => void
+    disabled?: boolean
 }
 
 const AddItemForm = memo((props: AddItemFormPropsType) => {
@@ -37,11 +38,13 @@ const AddItemForm = memo((props: AddItemFormPropsType) => {
                       error={!!error}
                       value={title}
                       onChange={onChangeHandler}
-                      onKeyDown={onKeyPressHandler}/>
+                      onKeyDown={onKeyPressHandler}
+                      disabled={props.disabled}/>
            <Button variant="contained"
                    size="small"
                    style={{maxWidth: '39px', maxHeight: '39px', minWidth: '39px', minHeight: '39px', marginLeft: '5px'}}
-                   onClick={addTask}>
+                   onClick={addTask}
+                   disabled={props.disabled}>
                +
            </Button>
            {/*{error && <div className={'error-message'}>{error}</div>}*/}

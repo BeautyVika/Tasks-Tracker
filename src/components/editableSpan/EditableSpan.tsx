@@ -3,6 +3,7 @@ import React, {ChangeEvent, memo, useState} from 'react';
 type EditableSpanPropsType = {
     title: string
     callback: (title: string) => void
+    disabled?: boolean
 }
 
 const EditableSpan = memo((props: EditableSpanPropsType) => {
@@ -21,9 +22,11 @@ const EditableSpan = memo((props: EditableSpanPropsType) => {
         edit && addTask()
     }
     return (
-        edit
-            ? <input value={updateTitle} onChange={onChangeHandler} onBlur={onDoubleClickHandler} autoFocus/>
-            : <span onDoubleClick={onDoubleClickHandler}>{props.title}</span>
+       edit
+            ? <input value={updateTitle} onChange={onChangeHandler} onBlur={onDoubleClickHandler}
+                     disabled={props.disabled}
+                     autoFocus/>
+            : <><span onDoubleClick={onDoubleClickHandler}>{props.title}</span></>
     )
 })
 
