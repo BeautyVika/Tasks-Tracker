@@ -35,7 +35,7 @@ const initialGlobalState = {
                 description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low}
         ]
     },
-    app: {status: 'loading', error: null}
+    app: {status: 'idle', error: null}
 }
 
 export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState as AppRootStateType)

@@ -4,11 +4,13 @@ import {todolistsReducer} from "../features/todolistsList/todolists-reducer";
 import thunkMiddleware, {ThunkDispatch} from "redux-thunk";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {appReducer} from "./app-reducer";
+import {authReducer} from "../features/login/auth-reducer";
 
 const rootReducer = combineReducers({
     todolists: todolistsReducer,
     tasks: tasksReducer,
-    app: appReducer
+    app: appReducer,
+    auth: authReducer
 })
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
