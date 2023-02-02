@@ -78,11 +78,10 @@ export const addTaskTC = (todoId: string, title: string) => (dispatch: Dispatch)
                 dispatch(addTaskAC(task))
                 dispatch(setStatusAC('succeeded'))
             } else {
-                handleServerAppError<{ item: TaskType }>(res.data, dispatch)
+                handleServerAppError(res.data, dispatch)
             }
         }).catch((e: AxiosError<{message: string}>) => {
-        const error = e.response ? e.response.data.message : e.message
-        handleServerNetworkError(error, dispatch)
+        handleServerNetworkError(e, dispatch)
     })
 }
 export const removeTaskTC = (todoId: string, taskId: string) => (dispatch: Dispatch) => {
@@ -117,12 +116,11 @@ export const updateTaskTC = (todoId: string, taskId: string, domainModel: Update
                         dispatch(updateTaskAC(taskId, domainModel, todoId))
                         dispatch(setStatusAC('succeeded'))
                     } else {
-                        handleServerAppError<{ item: TaskType }>(res.data, dispatch)
+                        handleServerAppError(res.data, dispatch)
                     }
 
                 }).catch((e: AxiosError<{ message: string }>) => {
-                const error = e.response ? e.response.data.message : e.message
-                handleServerNetworkError(error, dispatch)
+                handleServerNetworkError(e, dispatch)
             })
         }
     }

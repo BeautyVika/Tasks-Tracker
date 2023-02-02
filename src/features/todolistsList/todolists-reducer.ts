@@ -2,7 +2,6 @@ import {RESULT_CODE, todolistAPI, TodolistType} from "../../api/todolist-api";
 import {Dispatch} from "redux";
 import {
     RequestStatusType,
-    setErrorAC,
     SetErrorActionType,
     setStatusAC,
     SetStatusActionType
@@ -51,8 +50,7 @@ export const getTodoTC = () => (dispatch: Dispatch) => {
             dispatch(setStatusAC('succeeded'))
         })
         .catch((e: AxiosError<{message: string}>) => {
-            const error = e.response ? e.response.data.message : e.message
-            handleServerNetworkError(error, dispatch)
+            handleServerNetworkError(e, dispatch)
         })
 }
 export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
@@ -63,12 +61,11 @@ export const addTodolistTC = (title: string) => (dispatch: Dispatch) => {
                 dispatch(addTodolistAC(res.data.data.item))
                 dispatch(setStatusAC('succeeded'))
             } else {
-                handleServerAppError<{ item: TodolistType }>(res.data, dispatch)
+                handleServerAppError(res.data, dispatch)
             }
         })
         .catch((e: AxiosError<{ message: string }>) => {
-        const error = e.response ? e.response.data.message : e.message
-        handleServerNetworkError(error, dispatch)
+        handleServerNetworkError(e, dispatch)
     })
 }
 export const deleteTodolistTC = (todoId: string) => (dispatch: Dispatch) => {
@@ -80,9 +77,8 @@ export const deleteTodolistTC = (todoId: string) => (dispatch: Dispatch) => {
             dispatch(setStatusAC('succeeded'))
         })
         .catch((e: AxiosError<{message: string}>) => {
-            const error = e.response ? e.response.data.message : e.message
             dispatch(changeTodolistEntityStatusAC(todoId, 'idle'))
-            handleServerNetworkError(error, dispatch)
+            handleServerNetworkError(e, dispatch)
         })
 }
 export const changeTodolistTitleTC = (todoId: string, title: string) => (dispatch: Dispatch) => {
@@ -93,8 +89,7 @@ export const changeTodolistTitleTC = (todoId: string, title: string) => (dispatc
             dispatch(setStatusAC('succeeded'))
         })
         .catch((e: AxiosError<{message: string}>) => {
-            const error = e.response ? e.response.data.message : e.message
-            handleServerNetworkError(error, dispatch)
+            handleServerNetworkError(e, dispatch)
         })
 }
 

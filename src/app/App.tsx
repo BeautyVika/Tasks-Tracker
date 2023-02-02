@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Container from '@mui/material/Container';
 import ButtonAppBar from "../components/buttonAppBar/ButtonAppBar";
@@ -6,9 +6,26 @@ import TodolistsList from "../features/todolistsList/TodolistsList";
 import {ErrorSnackbar} from "../components/errorSnackbar/ErrorSnackbar";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "../features/login/Login";
+import {meTC} from "../features/login/auth-reducer";
+import {AppDispatch, AppUseSelector} from "./store";
+import {CircularProgress} from "@mui/material";
 
 function App() {
 
+    const isInitialized = AppUseSelector(state => state.app.isInitialized)
+
+    const dispatch = AppDispatch()
+
+    useEffect(() => {
+        dispatch(meTC())
+    }, [])
+
+    if (!isInitialized) {
+        return <div
+            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            <CircularProgress/>
+        </div>
+    }
 
     return (
         <div className="App">
