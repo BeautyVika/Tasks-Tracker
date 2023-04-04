@@ -1,15 +1,15 @@
-import React, {memo, useCallback, useEffect} from 'react';
-import AddItemForm from "../../../components/addItemForm/AddItemForm";
-import EditableSpan from "../../../components/editableSpan/EditableSpan";
-import IconButton from '@mui/material/IconButton';
-import DeleteIcon from '@mui/icons-material/Delete';
-import Task from "./task/Task";
-import SuperButton from "../../../components/superButton/SuperButton";
-import {FilterValuesType} from "../todolists-reducer";
-import {TaskStatuses, TaskType} from "../../../api/todolist-api";
-import {AppDispatch} from "../../../app/store";
-import {getTaskTC} from "../tasks-reducer";
-import {RequestStatusType} from "../../../app/app-reducer";
+import React, {memo, useCallback, useEffect} from 'react'
+import AddItemForm from "../../../components/addItemForm/AddItemForm"
+import EditableSpan from "../../../components/editableSpan/EditableSpan"
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
+import Task from "./task/Task"
+import SuperButton from "../../../components/superButton/SuperButton"
+import {FilterValuesType} from "../todolists-reducer"
+import {TaskStatuses, TaskType} from "api/todolist-api"
+import {AppDispatch} from "app/store"
+import {getTaskTC} from "../tasks-reducer"
+import {RequestStatusType} from "app/app-reducer"
 
 type TodolistPropsType = {
     id: string

@@ -1,5 +1,5 @@
-import React, {useCallback, useEffect} from 'react';
-import {AppDispatch, AppUseSelector} from "../../app/store";
+import React, {useCallback, useEffect} from 'react'
+import {AppDispatch, AppUseSelector} from "app/store"
 import {
     addTodolistTC,
     changeTodolistFilterAC, changeTodolistTitleTC,
@@ -7,13 +7,13 @@ import {
     FilterValuesType,
     getTodoTC,
     TodolistDomainType
-} from "./todolists-reducer";
-import {addTaskTC, TaskStateType} from "./tasks-reducer";
-import Grid from "@mui/material/Grid";
-import AddItemForm from "../../components/addItemForm/AddItemForm";
-import Paper from "@mui/material/Paper";
-import Todolist from "./todolist/Todolist";
-import {Navigate} from "react-router-dom";
+} from "./todolists-reducer"
+import {addTaskTC, TaskStateType} from "./tasks-reducer"
+import Grid from "@mui/material/Grid"
+import AddItemForm from "../../components/addItemForm/AddItemForm"
+import Paper from "@mui/material/Paper"
+import Todolist from "./todolist/Todolist"
+import {Navigate} from "react-router-dom"
 
 type TodolistsListPropsType = {}
 const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {

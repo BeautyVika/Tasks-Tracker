@@ -5,10 +5,10 @@ import {
     SetIsInitializedActionType,
     setStatusAC,
     SetStatusActionType
-} from '../../app/app-reducer'
-import {authAPI, LoginType, RESULT_CODE} from "../../api/todolist-api";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
-import axios from "axios";
+} from 'app/app-reducer'
+import {authAPI, LoginType, RESULT_CODE} from "api/todolist-api"
+import {handleServerAppError, handleServerNetworkError} from "utils/error-utils"
+import axios from "axios"
 
 const initialState = {
     isLoggedIn: false

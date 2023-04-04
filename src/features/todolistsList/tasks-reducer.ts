@@ -2,7 +2,7 @@ import {
     AddTodolistActionType,
     RemoveTodolistActionType,
     SetTodolistsActionType,
-} from "./todolists-reducer";
+} from "./todolists-reducer"
 import {
     RESULT_CODE,
     TaskPriorities,
@@ -10,12 +10,12 @@ import {
     TaskType,
     todolistAPI,
     UpdateTaskModelType
-} from "../../api/todolist-api";
-import {Dispatch} from "redux";
-import {AppRootStateType} from "../../app/store";
-import {SetErrorActionType, setStatusAC, SetStatusActionType} from "../../app/app-reducer";
+} from "api/todolist-api"
+import {Dispatch} from "redux"
+import {AppRootStateType} from "app/store"
+import {SetErrorActionType, setStatusAC, SetStatusActionType} from "app/app-reducer"
 import {AxiosError} from "axios";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {handleServerAppError, handleServerNetworkError} from "utils/error-utils"
 
 const initialState: TaskStateType = {}
 

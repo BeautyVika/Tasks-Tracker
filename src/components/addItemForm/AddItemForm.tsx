@@ -1,6 +1,6 @@
-import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
 
 type AddItemFormPropsType = {
     addTask: (newTitle: string) => void

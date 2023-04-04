@@ -1,13 +1,13 @@
-import {RESULT_CODE, todolistAPI, TodolistType} from "../../api/todolist-api";
-import {Dispatch} from "redux";
+import {RESULT_CODE, todolistAPI, TodolistType} from "api/todolist-api"
+import {Dispatch} from "redux"
 import {
     RequestStatusType,
     SetErrorActionType,
     setStatusAC,
     SetStatusActionType
-} from "../../app/app-reducer";
-import {AxiosError} from "axios";
-import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+} from "app/app-reducer"
+import {AxiosError} from "axios"
+import {handleServerAppError, handleServerNetworkError} from "utils/error-utils"
 
 const initialState: Array<TodolistDomainType> = []
 

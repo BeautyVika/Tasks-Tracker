@@ -1,4 +1,4 @@
-import React, {ChangeEvent, memo, useState} from 'react';
+import React, {ChangeEvent, memo, useState} from 'react'
 
 type EditableSpanPropsType = {
     title: string

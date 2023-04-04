@@ -1,11 +1,11 @@
 import React, {ChangeEvent, memo} from 'react'
-import Checkbox from "@mui/material/Checkbox";
-import EditableSpan from "../../../../components/editableSpan/EditableSpan";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import {removeTaskTC, updateTaskTC} from "../../tasks-reducer";
-import {TaskStatuses, TaskType} from "../../../../api/todolist-api";
-import {AppDispatch} from "../../../../app/store";
+import Checkbox from "@mui/material/Checkbox"
+import EditableSpan from "../../../../components/editableSpan/EditableSpan"
+import IconButton from "@mui/material/IconButton"
+import DeleteIcon from "@mui/icons-material/Delete"
+import {removeTaskTC, updateTaskTC} from "../../tasks-reducer"
+import {TaskStatuses, TaskType} from "api/todolist-api"
+import {AppDispatch} from "app/store"
 
 export type TaskPropsType = {
     task: TaskType
