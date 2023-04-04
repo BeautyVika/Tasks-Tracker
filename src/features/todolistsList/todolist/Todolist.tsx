@@ -27,9 +27,10 @@ const Todolist = memo((props: TodolistPropsType) => {
     //получение тасок todolist
     // const tasksTl = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.id])
     const dispatch = AppDispatch()
-    useEffect(() => {
-        dispatch(getTaskTC(props.id))
-    }, [])
+
+    // useEffect(() => {
+    //     dispatch(getTaskTC(props.id))
+    // }, [])
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id)

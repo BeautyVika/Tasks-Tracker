@@ -4,6 +4,7 @@ import {authAPI, LoginType, RESULT_CODE} from "api/todolist-api"
 import {handleServerAppError, handleServerNetworkError} from "utils/error-utils"
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {setIsInitialized, setStatus} from "app/app-reducer";
+import {clearTodosData} from "features/todolistsList/todolists-reducer";
 
 const slice = createSlice({
     name: 'auth',
@@ -70,6 +71,7 @@ export const loginOutTC = () => async (dispatch: Dispatch) => {
         if (res.data.resultCode === RESULT_CODE.SUCCESS) {
             dispatch(setIsLoggedIn({isLoggedIn: false}))
             dispatch(setStatus({status: "succeeded"}))
+            dispatch(clearTodosData({todolists: []}))
         } else {
             handleServerAppError(res.data, dispatch)
         }

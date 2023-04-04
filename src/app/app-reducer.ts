@@ -6,7 +6,7 @@ const initialState = {
     isInitialized: false
 }
 
-type InitialStateType = typeof initialState
+export type AppInitialStateType = typeof initialState
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 const slice = createSlice({
@@ -28,16 +28,3 @@ const slice = createSlice({
 export const appReducer = slice.reducer
 
 export const {setStatus, setError, setIsInitialized} = slice.actions
-
-// export const setStatusAC = (status: RequestStatusType) => ({type: 'APP/SET-STATUS', status} as const )
-// export const setErrorAC = (error: null | string) => ({type: 'APP/SET-ERROR', error} as const)
-// export const setIsInitializedAC = (isInitialized: boolean) => ({type: 'SET-IS-INITIALIZED', isInitialized} as const)
-
-//types
-// type AppActionsType = SetStatusActionType
-//     | SetErrorActionType
-//     | SetIsInitializedActionType
-//
-// export type SetStatusActionType = ReturnType<typeof setStatusAC>
-// export type SetErrorActionType = ReturnType<typeof setErrorAC>
-// export type SetIsInitializedActionType = ReturnType<typeof setIsInitializedAC>

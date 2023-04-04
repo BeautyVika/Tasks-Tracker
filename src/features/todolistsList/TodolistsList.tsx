@@ -2,7 +2,7 @@ import React, {useCallback, useEffect} from 'react'
 import {AppDispatch, AppUseSelector} from "app/store"
 import {
     addTodolistTC,
-    changeTodolistFilterAC, changeTodolistTitleTC,
+    changeTodolistFilter, changeTodolistTitleTC,
     deleteTodolistTC,
     FilterValuesType,
     getTodoTC,
@@ -29,8 +29,8 @@ const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
         dispatch(getTodoTC())
     }, [])
 
-    const changeFilter = useCallback((value: FilterValuesType, todoListId: string) => {
-        dispatch(changeTodolistFilterAC(todoListId, value))
+    const changeFilter = useCallback((filter: FilterValuesType, id: string) => {
+        dispatch(changeTodolistFilter({id, filter}))
     }, [dispatch])
 
     const addTask = useCallback((newTitle: string, todolistId: string) => {
