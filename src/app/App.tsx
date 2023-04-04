@@ -4,16 +4,17 @@ import ButtonAppBar from "../components/buttonAppBar/ButtonAppBar"
 import TodolistsList from "../features/todolistsList/TodolistsList"
 import {ErrorSnackbar} from "components/errorSnackbar/ErrorSnackbar"
 import {Navigate, Route, Routes} from "react-router-dom"
-import {Login} from "features/login/Login"
-import {meTC} from "features/login/auth-reducer"
+import {Login} from "features/auth/Login"
+import {meTC} from "features/auth/auth.reducer"
 import {AppDispatch, AppUseSelector} from "./store"
 import {CircularProgress} from "@mui/material"
+import {selectIsInitialized} from "app/app.selectors"
 
 import './App.css'
 
 function App() {
 
-    const isInitialized = AppUseSelector(state => state.app.isInitialized)
+    const isInitialized = AppUseSelector(selectIsInitialized)
 
     const dispatch = AppDispatch()
 
@@ -35,7 +36,7 @@ function App() {
             <Container fixed>
                 <Routes>
                     <Route path={'/'} element={<TodolistsList/>}/>
-                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/auth'} element={<Login/>}/>
                     <Route path={'/404'}
                            element={<h1 style={{display: 'flex',justifyContent:'center', alignItems: 'center'}}>404 not found</h1>}/>
                     <Route path={'*'}

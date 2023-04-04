@@ -6,21 +6,23 @@ import {
     deleteTodolistTC,
     FilterValuesType,
     getTodoTC,
-    TodolistDomainType
 } from "./todolists-reducer"
-import {addTaskTC, TaskStateType} from "./tasks-reducer"
+import {addTaskTC} from "./tasks-reducer"
 import Grid from "@mui/material/Grid"
 import AddItemForm from "../../components/addItemForm/AddItemForm"
 import Paper from "@mui/material/Paper"
 import Todolist from "./todolist/Todolist"
 import {Navigate} from "react-router-dom"
+import {selectIsLoggedIn} from "features/auth/auth.selectors"
+import {selectTasks} from "features/todolistsList/tasks.selectors"
+import {selectTodolists} from "features/todolistsList/todolists.selectors"
 
 type TodolistsListPropsType = {}
 const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
 
-    const todolists = AppUseSelector<Array<TodolistDomainType>>(state => state.todolists)
-    const tasks = AppUseSelector<TaskStateType>(state => state.tasks)
-    const isLoggedIn = AppUseSelector(state => state.auth.isLoggedIn)
+    const todolists = AppUseSelector(selectTodolists)
+    const tasks = AppUseSelector(selectTasks)
+    const isLoggedIn = AppUseSelector(selectIsLoggedIn)
 
     const dispatch = AppDispatch()
 
@@ -51,7 +53,7 @@ const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
     }, [dispatch])
 
     if (!isLoggedIn) {
-        return <Navigate to={'/login'}/>
+        return <Navigate to={'/auth'}/>
     }
 
     return (
