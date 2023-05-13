@@ -1,11 +1,8 @@
 import React, {useCallback, useEffect} from 'react'
 import {AppDispatch, AppUseSelector} from "app/store"
 import {
-    addTodolistTC,
-    changeTodolistFilter, changeTodolistTitleTC,
-    deleteTodolistTC,
-    FilterValuesType,
-    getTodoTC,
+    changeTodolistFilter,
+    FilterValuesType, todosThunks,
 } from "./todolists-reducer"
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
@@ -28,7 +25,7 @@ const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
 
     useEffect(() => {
         if (!isLoggedIn) return
-        dispatch(getTodoTC())
+        dispatch(todosThunks.fetchTodos())
     }, [])
 
     const changeFilter = useCallback((filter: FilterValuesType, id: string) => {
@@ -41,15 +38,15 @@ const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
 
 
     const removeTodolist = useCallback((todolistId: string) => {
-        dispatch(deleteTodolistTC(todolistId))
+        dispatch(todosThunks.deleteTodolist(todolistId))
     }, [dispatch])
 
     const addTodolist = useCallback((title: string) => {
-        dispatch(addTodolistTC(title))
+        dispatch(todosThunks.addTodolist(title))
     }, [dispatch])
 
     const updateTodolist = useCallback((updateTitle: string, todolistId: string) => {
-        dispatch(changeTodolistTitleTC(todolistId, updateTitle))
+        dispatch(todosThunks.changeTodolistTitle({todoId: todolistId, title: updateTitle}))
     }, [dispatch])
 
     if (!isLoggedIn) {

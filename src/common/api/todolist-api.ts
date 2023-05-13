@@ -30,8 +30,8 @@ export const todolistAPI = {
     deleteTodolist(todolistId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}`)
     },
-    updateTodolist(todolistId: string, title: string) {
-        return instance.put<ResponseType>(`todo-lists/${todolistId}`, {title})
+    updateTodolist(arg: UpdateTodolistTitleArgType) {
+        return instance.put<ResponseType>(`todo-lists/${arg.todoId}`, {title: arg.title})
     },
     getTasks(todolistId: string){
         return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
@@ -134,4 +134,8 @@ export type UpdateTaskArgType = {
     taskId: string,
     domainModel: UpdateDomainTaskModelType,
     todoId: string
+}
+export type UpdateTodolistTitleArgType = {
+    todoId: string
+    title: string
 }

@@ -36,7 +36,7 @@ export const UpdateTodolistTitle = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
         const todolistId = 'adf1d5f7-2f72-484c-9a9d-1abc10813cbc'
-        todolistAPI.updateTodolist(todolistId, 'REACT-REDUX')
+        todolistAPI.updateTodolist({todoId: todolistId, title: 'REACT-REDUX'})
             .then((res) => setState(res.data))
     }, [])
 

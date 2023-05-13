@@ -1,4 +1,4 @@
-import {addTodolist, removeTodolist, TodolistDomainType, todolistsReducer} from "./todolists-reducer"
+import {TodolistDomainType, todolistsReducer, todosThunks} from "./todolists-reducer"
 import {tasksReducer, TasksStateType} from "./tasks-reducer"
 import {TaskPriorities, TaskStatuses} from "common/api/todolist-api"
 import {v1} from "uuid"
@@ -10,7 +10,7 @@ test('ids should be equals', () => {
     let todolistId1 = v1()
     let newTodolist = {id: todolistId1, title: 'What to learn', filter: 'all', addedDate: '', order: 0, entityStatus: 'idle'}
 
-    const action = addTodolist({todolist: newTodolist})
+    const action = todosThunks.addTodolist.fulfilled({todolist: newTodolist}, 'requestId', newTodolist.title)
 
     const endTasksState = tasksReducer(startTasksState, action)
     const endTodolistsState = todolistsReducer(startTodolistsState, action)
@@ -43,7 +43,7 @@ test('property with todolistId should be deleted', () => {
         ]
     }
 
-    const action = removeTodolist({id: 'todolistId2'})
+    const action = todosThunks.deleteTodolist.fulfilled({id: 'todolistId2'}, 'requestId', 'todolistId2')
 
     const endState = tasksReducer(startState, action)
 
