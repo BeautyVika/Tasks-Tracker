@@ -4,7 +4,7 @@ import {RequestStatusType, setStatus} from "app/app-reducer"
 import {AxiosError} from "axios"
 import {handleServerAppError, handleServerNetworkError} from "utils/error-utils"
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {getTaskTC} from "features/todolistsList/tasks-reducer";
+import {tasksThunks} from "features/todolistsList/tasks-reducer";
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
@@ -60,7 +60,7 @@ export const getTodoTC = () => (dispatch: any) => {
         })
         .then((todos )=> {
             todos.forEach((tl) => {
-                dispatch(getTaskTC(tl.id))
+                dispatch(tasksThunks.fetchTasks(tl.id))
             })
         })
         .catch((e: AxiosError<{message: string}>) => {

@@ -3,7 +3,7 @@ import Checkbox from "@mui/material/Checkbox"
 import EditableSpan from "../../../../components/editableSpan/EditableSpan"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
-import {removeTaskTC, updateTaskTC} from "../../tasks-reducer"
+import {tasksThunks} from "../../tasks-reducer"
 import {TaskStatuses, TaskType} from "api/todolist-api"
 import {AppDispatch} from "app/store"
 
@@ -21,14 +21,19 @@ const Task = memo(({task, todolistId}: TaskPropsType) => {
     const dispatch = AppDispatch()
 
     const onClickHandler = () => {
-        dispatch(removeTaskTC(todolistId, task.id))
+        dispatch(tasksThunks.removeTask({todoId: todolistId, taskId: task.id}))
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
-        dispatch(updateTaskTC(todolistId, task.id, {status: newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New}))
+        dispatch(tasksThunks.updateTask(
+            {
+                todoId: todolistId,
+                taskId: task.id,
+                domainModel: {status: newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New}
+            }))
     }
     const updateTaskHandler = (updateTitle: string, taskId: string) => {
-        dispatch(updateTaskTC(todolistId, taskId, {title: updateTitle}))
+        dispatch(tasksThunks.updateTask({todoId: todolistId, taskId, domainModel: {title: updateTitle}}))
     }
     return (
         <li key={task.id} className={task.status === TaskStatuses.Completed ? 'is-done' : ''}>

@@ -8,7 +8,7 @@ import SuperButton from "../../../components/superButton/SuperButton"
 import {FilterValuesType} from "../todolists-reducer"
 import {TaskStatuses, TaskType} from "api/todolist-api"
 import {AppDispatch} from "app/store"
-import {getTaskTC} from "../tasks-reducer"
+import {tasksThunks} from "../tasks-reducer"
 import {RequestStatusType} from "app/app-reducer"
 
 type TodolistPropsType = {
@@ -28,9 +28,9 @@ const Todolist = memo((props: TodolistPropsType) => {
     // const tasksTl = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.id])
     const dispatch = AppDispatch()
 
-    // useEffect(() => {
-    //     dispatch(getTaskTC(props.id))
-    // }, [])
+    useEffect(() => {
+        dispatch(tasksThunks.fetchTasks(props.id))
+    }, [])
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id)

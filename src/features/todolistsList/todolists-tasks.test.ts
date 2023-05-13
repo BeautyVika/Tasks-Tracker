@@ -1,10 +1,10 @@
 import {addTodolist, removeTodolist, TodolistDomainType, todolistsReducer} from "./todolists-reducer"
-import {tasksReducer, TaskStateType} from "./tasks-reducer"
+import {tasksReducer, TasksStateType} from "./tasks-reducer"
 import {TaskPriorities, TaskStatuses} from "api/todolist-api"
 import {v1} from "uuid"
 
 test('ids should be equals', () => {
-    const startTasksState: TaskStateType = {}
+    const startTasksState: TasksStateType = {}
     const startTodolistsState: Array<TodolistDomainType> = []
 
     let todolistId1 = v1()
@@ -24,7 +24,7 @@ test('ids should be equals', () => {
 })
 
 test('property with todolistId should be deleted', () => {
-    const startState: TaskStateType = {
+    const startState: TasksStateType = {
         'todolistId1': [
             {id: '1', title: 'CSS', status: TaskStatuses.New, todoListId: 'todolistId1',
                 description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low },

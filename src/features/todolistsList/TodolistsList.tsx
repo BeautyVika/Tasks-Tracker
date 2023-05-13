@@ -7,7 +7,6 @@ import {
     FilterValuesType,
     getTodoTC,
 } from "./todolists-reducer"
-import {addTaskTC} from "./tasks-reducer"
 import Grid from "@mui/material/Grid"
 import AddItemForm from "../../components/addItemForm/AddItemForm"
 import Paper from "@mui/material/Paper"
@@ -16,6 +15,7 @@ import {Navigate} from "react-router-dom"
 import {selectIsLoggedIn} from "features/auth/auth.selectors"
 import {selectTasks} from "features/todolistsList/tasks.selectors"
 import {selectTodolists} from "features/todolistsList/todolists.selectors"
+import {tasksThunks} from "features/todolistsList/tasks-reducer";
 
 type TodolistsListPropsType = {}
 const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
@@ -35,8 +35,8 @@ const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
         dispatch(changeTodolistFilter({id, filter}))
     }, [dispatch])
 
-    const addTask = useCallback((newTitle: string, todolistId: string) => {
-        dispatch(addTaskTC(todolistId, newTitle))
+    const addTask = useCallback((title: string, todolistId: string) => {
+        dispatch(tasksThunks.addTask({todolistId, title}))
     }, [dispatch])
 
 
