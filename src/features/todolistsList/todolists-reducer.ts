@@ -1,10 +1,11 @@
-import {RESULT_CODE, todolistAPI, TodolistType} from "api/todolist-api"
+import {RESULT_CODE, todolistAPI, TodolistType} from "common/api/todolist-api"
 import {Dispatch} from "redux"
 import {RequestStatusType, setStatus} from "app/app-reducer"
 import {AxiosError} from "axios"
-import {handleServerAppError, handleServerNetworkError} from "utils/error-utils"
+
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {tasksThunks} from "features/todolistsList/tasks-reducer";
+import {handleServerAppError, handleServerNetworkError} from "common/utils";
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 

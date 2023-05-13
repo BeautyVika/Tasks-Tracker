@@ -1,6 +1,6 @@
 import {addTodolist, removeTodolist, TodolistDomainType, todolistsReducer} from "./todolists-reducer"
 import {tasksReducer, TasksStateType} from "./tasks-reducer"
-import {TaskPriorities, TaskStatuses} from "api/todolist-api"
+import {TaskPriorities, TaskStatuses} from "common/api/todolist-api"
 import {v1} from "uuid"
 
 test('ids should be equals', () => {

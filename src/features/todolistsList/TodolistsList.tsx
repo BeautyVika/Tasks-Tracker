@@ -8,14 +8,14 @@ import {
     getTodoTC,
 } from "./todolists-reducer"
 import Grid from "@mui/material/Grid"
-import AddItemForm from "../../components/addItemForm/AddItemForm"
 import Paper from "@mui/material/Paper"
 import Todolist from "./todolist/Todolist"
 import {Navigate} from "react-router-dom"
 import {selectIsLoggedIn} from "features/auth/auth.selectors"
 import {selectTasks} from "features/todolistsList/tasks.selectors"
 import {selectTodolists} from "features/todolistsList/todolists.selectors"
-import {tasksThunks} from "features/todolistsList/tasks-reducer";
+import {tasksThunks} from "features/todolistsList/tasks-reducer"
+import {AddItemForm} from "common/components"
 
 type TodolistsListPropsType = {}
 const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {

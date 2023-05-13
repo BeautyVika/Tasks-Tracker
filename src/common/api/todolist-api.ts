@@ -45,9 +45,6 @@ export const todolistAPI = {
     updateTask(todolistId: string, taskId: string, model: UpdateTaskModelType){
         return instance.put<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
     }
-    // updateTask(arg: UpdateTaskArgType){
-    //     return instance.put<ResponseType<{ item: TaskType }>>(`todo-lists/${arg.todoId}/tasks/${arg.taskId}`, {domainModel: arg.domainModel})
-    // }
 }
 
 //types
@@ -104,11 +101,11 @@ type GetTasksResponse = {
     totalCount: number
     items: []
 }
-export enum RESULT_CODE {
-    SUCCESS = 0,
-    ERROR = 1,
-    CAPTCHA = 10
-}
+export const RESULT_CODE = {
+    SUCCESS: 0,
+    ERROR: 1,
+    CAPTCHA: 10
+} as const
 export type AddTaskArgType = {
     todolistId: string,
     title: string

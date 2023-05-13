@@ -9,7 +9,7 @@ type SuperButtonType = {
     title: string
 }
 
-const SuperButton = memo((props: SuperButtonType) => {
+export const SuperButton = memo((props: SuperButtonType) => {
     return <Button variant={props.variant}
                    color={props.color}
                    size={props.size}
@@ -17,4 +17,3 @@ const SuperButton = memo((props: SuperButtonType) => {
         {props.title}
     </Button>
 })
-export default SuperButton

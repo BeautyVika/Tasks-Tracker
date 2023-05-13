@@ -7,7 +7,7 @@ type AddItemFormPropsType = {
     disabled?: boolean
 }
 
-const AddItemForm = memo((props: AddItemFormPropsType) => {
+export const AddItemForm = memo((props: AddItemFormPropsType) => {
 
     let [title, setTitle] = useState('')
     let [error, setError]= useState<string | null>(null)
@@ -51,5 +51,3 @@ const AddItemForm = memo((props: AddItemFormPropsType) => {
        </div>
    )
 })
-
-export default AddItemForm

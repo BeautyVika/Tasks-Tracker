@@ -1,7 +1,7 @@
 import {Dispatch} from 'redux'
 import axios from "axios"
-import {authAPI, LoginType, RESULT_CODE} from "api/todolist-api"
-import {handleServerAppError, handleServerNetworkError} from "utils/error-utils"
+import {authAPI, LoginType, RESULT_CODE} from "common/api/todolist-api"
+import {handleServerAppError, handleServerNetworkError} from "common/utils"
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {setIsInitialized, setStatus} from "app/app-reducer";
 import {clearTodosData} from "features/todolistsList/todolists-reducer";

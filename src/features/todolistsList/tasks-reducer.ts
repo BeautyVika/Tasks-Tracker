@@ -4,12 +4,12 @@ import {
     TaskType,
     todolistAPI, UpdateTaskArgType,
     UpdateTaskModelType
-} from "api/todolist-api"
-import {handleServerAppError, handleServerNetworkError} from "utils/error-utils"
+} from "common/api/todolist-api"
 import {setError, setStatus} from "app/app-reducer";
 import {createSlice} from "@reduxjs/toolkit";
 import {addTodolist, clearTodosData, removeTodolist, setTodolists} from "features/todolistsList/todolists-reducer";
-import {createAppAsyncThunk} from "utils/create-app-async-thunk";
+import {createAppAsyncThunk} from "common/utils/create-app-async-thunk";
+import {handleServerAppError, handleServerNetworkError} from "common/utils";
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -70,7 +70,7 @@ const updateTask = createAppAsyncThunk<UpdateTaskArgType, UpdateTaskArgType>('ta
                 ...arg.domainModel
             }
             const res = await todolistAPI.updateTask(arg.todoId, arg.taskId, apiModel)
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === RESULT_CODE.SUCCESS) {
                 dispatch(setStatus({status: "succeeded"}))
                 return arg
             }else {

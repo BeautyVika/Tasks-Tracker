@@ -5,7 +5,7 @@ import { v1 } from 'uuid'
 import {tasksReducer} from "features/todolistsList/tasks-reducer"
 import {todolistsReducer} from "features/todolistsList/todolists-reducer"
 import {AppRootStateType} from "./store"
-import {TaskPriorities, TaskStatuses} from "api/todolist-api"
+import {TaskPriorities, TaskStatuses} from "common/api/todolist-api"
 import {appReducer} from "./app-reducer"
 
 const rootReducer = combineReducers({

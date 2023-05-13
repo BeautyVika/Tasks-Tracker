@@ -12,7 +12,7 @@ import {loginOutTC} from "features/auth/auth.reducer"
 import {selectStatus} from "app/app.selectors"
 import {selectIsLoggedIn} from "features/auth/auth.selectors"
 
-export default function ButtonAppBar() {
+export function ButtonAppBar() {
 
     const status = AppUseSelector(selectStatus)
     const isLoggedIn = AppUseSelector(selectIsLoggedIn)
@@ -43,5 +43,5 @@ export default function ButtonAppBar() {
                 {status === 'loading' && <LinearProgress color="error" /> }
             </AppBar>
         </Box>
-    );
+    )
 }
