@@ -3,9 +3,10 @@ import Checkbox from "@mui/material/Checkbox"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import {tasksThunks} from "../../tasks-reducer"
-import {TaskStatuses, TaskType} from "common/api/todolist-api"
 import {AppDispatch} from "app/store"
 import {EditableSpan} from "common/components";
+import {TaskStatuses} from "common/enums/enums";
+import {TaskType} from "features/todolistsList/tasksApi";
 
 export type TaskPropsType = {
     task: TaskType

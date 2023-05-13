@@ -1,5 +1,6 @@
 import {tasksReducer, TasksStateType, tasksThunks,} from './tasks-reducer'
-import {TaskPriorities, TaskStatuses, UpdateDomainTaskModelType} from "common/api/todolist-api"
+import { TaskStatuses, TaskPriorities } from 'common/enums/enums'
+import {UpdateDomainTaskModelType} from "features/todolistsList/tasksApi";
 
 let startState: TasksStateType = {}
 let model: UpdateDomainTaskModelType

@@ -3,11 +3,12 @@ import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Task from "./task/Task"
 import {FilterValuesType} from "../todolists-reducer"
-import {TaskStatuses, TaskType} from "common/api/todolist-api"
 import {AppDispatch} from "app/store"
 import {tasksThunks} from "../tasks-reducer"
 import {RequestStatusType} from "app/app-reducer"
 import {AddItemForm, EditableSpan, SuperButton} from "common/components";
+import {TaskStatuses} from "common/enums/enums";
+import {TaskType} from "features/todolistsList/tasksApi";
 
 type TodolistPropsType = {
     id: string

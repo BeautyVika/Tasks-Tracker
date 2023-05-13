@@ -1,10 +1,11 @@
 import {Dispatch} from 'redux'
 import axios from "axios"
-import {authAPI, LoginType, RESULT_CODE} from "common/api/todolist-api"
 import {handleServerAppError, handleServerNetworkError} from "common/utils"
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {setIsInitialized, setStatus} from "app/app-reducer";
-import {clearTodosData} from "features/todolistsList/todolists-reducer";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit"
+import {setIsInitialized, setStatus} from "app/app-reducer"
+import {clearTodosData} from "features/todolistsList/todolists-reducer"
+import {RESULT_CODE} from "common/enums/enums"
+import {authApi, LoginType} from "features/auth/authApi"
 
 const slice = createSlice({
     name: 'auth',
@@ -25,7 +26,7 @@ export const {setIsLoggedIn} = slice.actions
 export const loginTC = (data: LoginType) => async (dispatch: Dispatch) => {
     dispatch(setStatus({status: "loading"}))
     try {
-        const res = await authAPI.login(data)
+        const res = await authApi.login(data)
         if (res.data.resultCode === RESULT_CODE.SUCCESS) {
             dispatch(setIsLoggedIn({isLoggedIn: true}))
             dispatch(setStatus({status: "succeeded"}))
@@ -47,7 +48,7 @@ export const loginTC = (data: LoginType) => async (dispatch: Dispatch) => {
 export const meTC = () => async (dispatch: Dispatch) => {
     dispatch(setStatus({status: "loading"}))
     try {
-        const res = await authAPI.me()
+        const res = await authApi.me()
         if (res.data.resultCode === RESULT_CODE.SUCCESS) {
             dispatch(setIsLoggedIn({isLoggedIn: true}))
             dispatch(setStatus({status: "succeeded"}))
@@ -67,7 +68,7 @@ export const meTC = () => async (dispatch: Dispatch) => {
 export const loginOutTC = () => async (dispatch: Dispatch) => {
     dispatch(setStatus({status: "loading"}))
     try {
-        const res = await authAPI.logOut()
+        const res = await authApi.logOut()
         if (res.data.resultCode === RESULT_CODE.SUCCESS) {
             dispatch(setIsLoggedIn({isLoggedIn: false}))
             dispatch(setStatus({status: "succeeded"}))
