@@ -3,7 +3,7 @@ import Container from '@mui/material/Container'
 import TodolistsList from "../features/todolistsList/TodolistsList"
 import {Navigate, Route, Routes} from "react-router-dom"
 import {Login} from "features/auth/Login"
-import {meTC} from "features/auth/auth.reducer"
+import {authThunks} from "features/auth/auth.reducer"
 import {AppDispatch, AppUseSelector} from "./store"
 import {CircularProgress} from "@mui/material"
 import {selectIsInitialized} from "app/app.selectors"
@@ -17,7 +17,7 @@ function App() {
     const dispatch = AppDispatch()
 
     useEffect(() => {
-        dispatch(meTC())
+        dispatch(authThunks.me())
     }, [])
 
     if (!isInitialized) {
