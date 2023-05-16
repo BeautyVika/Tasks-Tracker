@@ -8,9 +8,9 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import LinearProgress from '@mui/material/LinearProgress'
 import {AppDispatch, AppUseSelector} from "app/store"
-import {loginOutTC} from "features/auth/auth.reducer"
 import {selectStatus} from "app/app.selectors"
 import {selectIsLoggedIn} from "features/auth/auth.selectors"
+import {authThunks} from "features/auth/auth.reducer";
 
 export function ButtonAppBar() {
 
@@ -19,7 +19,7 @@ export function ButtonAppBar() {
 
     const dispatch = AppDispatch()
 
-    const logOutHandler = () => dispatch(loginOutTC())
+    const logOutHandler = () => dispatch(authThunks.loginOut())
 
 
     return (

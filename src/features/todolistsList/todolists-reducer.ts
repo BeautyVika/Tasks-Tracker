@@ -1,6 +1,6 @@
 import {RequestStatusType, setStatus} from "app/app-reducer"
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {createAppAsyncThunk, handleServerAppError, handleServerNetworkError} from "common/utils";
+import {createAppAsyncThunk, handleServerAppError, handleServerNetworkError, thunkTryCatch} from "common/utils";
 import {RESULT_CODE} from "common/enums/enums";
 import {todolistsApi, TodolistType, UpdateTodolistTitleArgType} from "features/todolistsList/todolistsApi";
 
@@ -27,21 +27,16 @@ const fetchTodos = createAppAsyncThunk<{ todolists: TodolistType[]}, void>('todo
 const addTodolist = createAppAsyncThunk<{todolist: TodolistType}, string>('todo/addTodolist',
     async (title, thunkAPI) => {
         const {dispatch, rejectWithValue} = thunkAPI
-        try{
-            dispatch(setStatus({status: "loading"}))
+        return thunkTryCatch(thunkAPI, async () => {
             const res = await todolistsApi.createTodolist(title)
             if (res.data.resultCode === RESULT_CODE.SUCCESS) {
-                dispatch(setStatus({status: "succeeded"}))
                 const todolist = res.data.data.item
                 return {todolist}
             } else {
                 handleServerAppError(res.data, dispatch)
                 return rejectWithValue(null)
             }
-        }catch (e: any) {
-            handleServerNetworkError(e, dispatch)
-            return rejectWithValue(null)
-        }
+        })
     })
 const deleteTodolist = createAppAsyncThunk<{id: string}, string> ('todo/deleteTodolist',
     async (id,thunkAPI) => {

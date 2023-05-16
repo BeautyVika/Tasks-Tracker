@@ -9,13 +9,14 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import {useFormik} from "formik"
 import {AppDispatch, AppUseSelector} from "app/store"
+import {authThunks} from "features/auth/auth.reducer"
 import {Navigate} from "react-router-dom"
 import {selectIsLoggedIn} from "features/auth/auth.selectors"
-import {authThunks} from "features/auth/auth.reducer";
 
 type FormikErrorType = {
     email?: string
     password?: string
+    rememberMe?: boolean
 }
 
 export const Login = () => {
@@ -32,21 +33,20 @@ export const Login = () => {
         validate: (values) => {
             const errors: FormikErrorType = {}
             if (!values.email) {
-                errors.email = 'Required'
+                errors.email = 'Enter your email!'
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = 'Invalid email address'
             }
             if (!values.password) {
-                errors.password = 'Required'
-            } else if (values.password.length < 2) {
-                errors.password = 'Length should be more 2 symbols'
+                errors.password = 'Enter your password!'
+            } else if (values.password.length < 3) {
+                errors.password = 'Length should be more 3 symbols'
             }
             return errors
         },
         onSubmit: values => {
            dispatch(authThunks.login(values))
-            formik.resetForm()
-        },
+        }
     })
     if (isLoggedIn) {
        return <Navigate to={'/'}/>

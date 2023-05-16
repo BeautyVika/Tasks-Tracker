@@ -27,13 +27,10 @@ const me = createAppAsyncThunk<{isLoggedIn: boolean}, void>('auth/me',
     async(_, thunkAPI) => {
         const {dispatch, rejectWithValue} = thunkAPI
         try{
-            dispatch(setStatus({status: "loading"}))
             const res = await authApi.me()
             if (res.data.resultCode === RESULT_CODE.SUCCESS) {
-                dispatch(setStatus({status: "succeeded"}))
                 return {isLoggedIn: true}
             } else {
-                handleServerAppError(res.data, dispatch)
                 return rejectWithValue(null)
             }
         }catch(e: any) {

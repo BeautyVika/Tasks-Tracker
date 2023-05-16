@@ -1,4 +1,4 @@
-import {setError, setStatus} from 'app/app-reducer'
+import {setError} from 'app/app-reducer'
 import { Dispatch } from 'redux'
 import axios, {AxiosError} from "axios";
 
@@ -10,5 +10,4 @@ export const handleServerNetworkError = (e: unknown, dispatch: Dispatch) => {
     } else {
         dispatch(setError({error: `Native error ${err.message}`}))
     }
-    dispatch(setStatus({status: 'failed'}))
 }
