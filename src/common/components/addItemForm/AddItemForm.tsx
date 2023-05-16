@@ -39,6 +39,7 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
                       value={title}
                       onChange={onChangeHandler}
                       onKeyDown={onKeyPressHandler}
+                      helperText={error}
                       disabled={props.disabled}/>
            <Button variant="contained"
                    size="small"
@@ -47,7 +48,6 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
                    disabled={props.disabled}>
                +
            </Button>
-           {/*{error && <div className={'error-message'}>{error}</div>}*/}
        </div>
    )
 })

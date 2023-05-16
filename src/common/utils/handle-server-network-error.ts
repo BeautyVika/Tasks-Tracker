@@ -1,4 +1,4 @@
-import {setError} from 'app/app-reducer'
+import {setError} from 'app/app.reducer'
 import { Dispatch } from 'redux'
 import axios, {AxiosError} from "axios"
 

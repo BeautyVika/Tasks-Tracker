@@ -2,10 +2,10 @@ import React, {ReactNode} from 'react'
 import { Provider } from 'react-redux'
 import {combineReducers, legacy_createStore} from 'redux'
 import { v1 } from 'uuid'
-import {tasksReducer} from "features/todolistsList/tasks-reducer"
-import {todolistsReducer} from "features/todolistsList/todolists-reducer"
+import {tasksReducer} from "features/todolistsList/tasks/tasks.reducer"
+import {todolistsReducer} from "features/todolistsList/todolists/todolists.reducer"
 import {AppRootStateType} from "./store"
-import {appReducer} from "./app-reducer"
+import {appReducer} from "app/app.reducer"
 import {TaskPriorities, TaskStatuses} from "common/enums/enums";
 
 const rootReducer = combineReducers({

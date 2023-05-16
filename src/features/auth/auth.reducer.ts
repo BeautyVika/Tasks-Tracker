@@ -1,9 +1,9 @@
 import {createAppAsyncThunk, handleServerAppError, handleServerNetworkError, thunkTryCatch} from "common/utils"
 import {createSlice} from "@reduxjs/toolkit"
-import {setIsInitialized} from "app/app-reducer"
+import {setIsInitialized} from "app/app.reducer"
 import {RESULT_CODE} from "common/enums/enums"
 import {authApi, LoginType} from "features/auth/authApi"
-import {todolistsActions} from "features/todolistsList/todolists-reducer"
+import {todolistsActions} from "features/todolistsList/todolists/todolists.reducer"
 
 const login = createAppAsyncThunk<{isLoggedIn: boolean}, LoginType> ('auth/login',
     async(arg, thunkAPI) => {

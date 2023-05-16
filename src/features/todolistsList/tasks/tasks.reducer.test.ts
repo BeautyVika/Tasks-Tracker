@@ -1,6 +1,6 @@
-import {tasksReducer, TasksStateType, tasksThunks,} from './tasks-reducer'
+import {tasksReducer, TasksStateType, tasksThunks,} from 'features/todolistsList/tasks/tasks.reducer'
 import { TaskStatuses, TaskPriorities } from 'common/enums/enums'
-import {UpdateDomainTaskModelType} from "features/todolistsList/tasksApi";
+import {UpdateDomainTaskModelType} from "features/todolistsList/tasks/tasksApi";
 
 let startState: TasksStateType = {}
 let model: UpdateDomainTaskModelType
@@ -31,7 +31,7 @@ beforeEach(() => {
 
 })
 
-test('correct task should be deleted from correct array', () => {
+test('correct tasks should be deleted from correct array', () => {
     const args = {taskId: '2', todoId: 'todolistId2'}
     const action = tasksThunks.removeTask.fulfilled(args, 'requestId', args)
 
@@ -57,7 +57,7 @@ test('correct task should be deleted from correct array', () => {
         ]
     })
 })
-test('correct task should be added to correct array', () => {
+test('correct tasks should be added to correct array', () => {
 
     let newTask = {id: '1', title: 'juce', status: TaskStatuses.New, todoListId: 'todolistId2',
         description: '', startDate: '', deadline: '', addedDate: '', order: 0, priority: TaskPriorities.Low}
@@ -82,7 +82,7 @@ test('', () =>{
     expect(endState['todolistId1'][0].status).toBe(TaskStatuses.Completed)
     expect(endState['todolistId1'][0].title).toBe('Redux')
 })
-test('task should be added for todolist', () => {
+test('tasks should be added for todolists', () => {
     const action = tasksThunks.fetchTasks.fulfilled({
             tasks: startState['todolistId1'],
             todoId: 'todolistId1'

@@ -20,7 +20,7 @@ export function ButtonAppBar() {
 
     const {loginOut} = useActions(authThunks)
 
-    const logOutHandler = () => loginOut()
+    const logOutHandler = () => loginOut({})
 
     return (
         <Box sx={{ flexGrow: 1 }}>

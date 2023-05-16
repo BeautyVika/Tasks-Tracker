@@ -2,7 +2,7 @@ import {
     FilterValuesType,
     TodolistDomainType, todolistsActions,
     todolistsReducer, todosThunks
-} from './todolists-reducer'
+} from 'features/todolistsList/todolists/todolists.reducer'
 import { v1 } from 'uuid'
 
 let startState: Array<TodolistDomainType>
@@ -18,7 +18,7 @@ beforeEach(() => {
     ]
 })
 
-test('correct todolist should be removed', () => {
+test('correct todolists should be removed', () => {
 
     const endState = todolistsReducer(startState, todosThunks.deleteTodolist.fulfilled({id: todolistId1}, 'requestId', todolistId1))
 
@@ -26,7 +26,7 @@ test('correct todolist should be removed', () => {
     expect(endState.length).toBe(1)
     expect(endState[0].id).toBe(todolistId2)
 })
-test('correct todolist should be added', () => {
+test('correct todolists should be added', () => {
 
     let todolistId3 = v1()
     let newTodolist = {id: todolistId3, title: 'New Todolist', filter: 'all', addedDate: '', order: 0, entityStatus: 'idle'}
@@ -39,7 +39,7 @@ test('correct todolist should be added', () => {
     expect(endState[0].title).toBe('New Todolist')
     expect(endState[2].title).toBe('What to buy')
 })
-test('correct todolist should change its name', () => {
+test('correct todolists should change its name', () => {
     let newTodolistTitle = 'New Todolist'
     const args = {todoId: todolistId2, title: newTodolistTitle}
 
@@ -48,7 +48,7 @@ test('correct todolist should change its name', () => {
     expect(endState[0].title).toBe('What to learn')
     expect(endState[1].title).toBe(newTodolistTitle)
 })
-test('correct filter of todolist should be changed', () => {
+test('correct filter of todolists should be changed', () => {
 
     let newFilter: FilterValuesType = 'completed'
 

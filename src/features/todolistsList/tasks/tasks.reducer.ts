@@ -1,6 +1,6 @@
-import {setError} from "app/app-reducer"
+import {setError} from "app/app.reducer"
 import {createSlice} from "@reduxjs/toolkit"
-import {todolistsActions, todosThunks} from "features/todolistsList/todolists-reducer"
+import {todolistsActions, todosThunks} from "features/todolistsList/todolists/todolists.reducer"
 import {createAppAsyncThunk} from "common/utils/create-app-async-thunk"
 import {handleServerAppError, thunkTryCatch} from "common/utils"
 import {
@@ -9,7 +9,7 @@ import {
     TaskType,
     UpdateTaskArgType,
     UpdateTaskModelType
-} from "features/todolistsList/tasksApi"
+} from "features/todolistsList/tasks/tasksApi"
 import {RESULT_CODE} from "common/enums/enums"
 
 export type TasksStateType = {

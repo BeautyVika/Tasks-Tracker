@@ -1,8 +1,8 @@
-import {RequestStatusType} from "app/app-reducer"
+import {RequestStatusType} from "app/app.reducer"
 import {createSlice, PayloadAction} from "@reduxjs/toolkit"
 import {createAppAsyncThunk, handleServerAppError, thunkTryCatch} from "common/utils"
 import {RESULT_CODE} from "common/enums/enums"
-import {todolistsApi, TodolistType, UpdateTodolistTitleArgType} from "features/todolistsList/todolistsApi"
+import {todolistsApi, TodolistType, UpdateTodolistTitleArgType} from "features/todolistsList/todolists/todolistsApi"
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 

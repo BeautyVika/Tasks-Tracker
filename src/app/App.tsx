@@ -18,7 +18,7 @@ function App() {
     const {me} = useActions(authThunks)
 
     useEffect(() => {
-       me()
+       me({})
     }, [])
 
     if (!isInitialized) {

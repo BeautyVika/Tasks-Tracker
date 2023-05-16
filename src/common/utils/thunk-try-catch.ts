@@ -1,5 +1,5 @@
 import {AppDispatchType, AppRootStateType} from "app/store"
-import {setStatus} from "app/app-reducer"
+import {setStatus} from "app/app.reducer"
 import {handleServerNetworkError} from "common/utils/handle-server-network-error"
 import {BaseThunkAPI} from "@reduxjs/toolkit/dist/createAsyncThunk"
 import {ResponseType} from "common/types/common.types"

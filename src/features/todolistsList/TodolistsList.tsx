@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect} from 'react'
 import {AppUseSelector} from "app/store"
-import {FilterValuesType, todolistsActions, todosThunks,} from "./todolists-reducer"
+import {todosThunks} from "features/todolistsList/todolists/todolists.reducer"
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
-import Todolist from "./todolist/Todolist"
+import Todolist from "features/todolistsList/todolists/todolist/Todolist"
 import {Navigate} from "react-router-dom"
 import {selectIsLoggedIn} from "features/auth/auth.selectors"
-import {selectTasks} from "features/todolistsList/tasks.selectors"
-import {selectTodolists} from "features/todolistsList/todolists.selectors"
-import {tasksThunks} from "features/todolistsList/tasks-reducer"
+import {selectTasks} from "features/todolistsList/tasks/tasks.selectors"
+import {selectTodolists} from "features/todolistsList/todolists/todolists.selectors"
+import {tasksThunks} from "features/todolistsList/tasks/tasks.reducer"
 import {AddItemForm} from "common/components"
 import {useActions} from "common/hooks/useAction"
 
@@ -19,34 +19,20 @@ const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
     const tasks = AppUseSelector(selectTasks)
     const isLoggedIn = AppUseSelector(selectIsLoggedIn)
 
-    const {fetchTodos, deleteTodolist, addTodolist, changeTodolistTitle} = useActions(todosThunks)
+    const {fetchTodos, addTodolist} = useActions(todosThunks)
     const {addTask} = useActions(tasksThunks)
-    const {changeTodolistFilter} = useActions(todolistsActions)
 
     useEffect(() => {
         if (!isLoggedIn) return
-       fetchTodos()
-    }, [])
-
-    const changeFilter = useCallback((filter: FilterValuesType, id: string) => {
-        changeTodolistFilter({id, filter})
+       fetchTodos({})
     }, [])
 
     const addNewTask = useCallback((title: string, todolistId: string) => {
         addTask({todolistId, title})
     }, [])
 
-
-    const removeTodolist = useCallback((todolistId: string) => {
-       deleteTodolist(todolistId)
-    }, [])
-
     const addNewTodolist = useCallback((title: string) => {
        addTodolist(title)
-    }, [])
-
-    const updateTodolist = useCallback((updateTitle: string, todolistId: string) => {
-       changeTodolistTitle({todoId: todolistId, title: updateTitle})
     }, [])
 
     if (!isLoggedIn) {
@@ -69,9 +55,7 @@ const TodolistsList: React.FC<TodolistsListPropsType> = (props) => {
                                       tasks={tasks[todolist.id]}
                                       filter={todolist.filter}
                                       addTask={addNewTask}
-                                      removeTodolist={removeTodolist}
-                                      changeFilter={changeFilter}
-                                      updateTodolist={updateTodolist}/>
+                            />
                         </Paper>
                     </Grid>
                 })}

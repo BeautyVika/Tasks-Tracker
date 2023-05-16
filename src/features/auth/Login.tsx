@@ -7,19 +7,14 @@ import FormGroup from '@mui/material/FormGroup'
 import FormLabel from '@mui/material/FormLabel'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
-import {useFormik} from "formik"
+import {FormikHelpers, useFormik} from "formik"
 import {AppUseSelector} from "app/store"
 import {authThunks} from "features/auth/auth.reducer"
 import {Navigate} from "react-router-dom"
 import {selectIsLoggedIn} from "features/auth/auth.selectors"
 import {useActions} from "common/hooks/useAction"
-
-
-type FormikErrorType = {
-    email?: string
-    password?: string
-    rememberMe?: boolean
-}
+import {LoginType} from "features/auth/authApi"
+import {ResponseType} from "common/types/common.types"
 
 export const Login = () => {
 
@@ -33,7 +28,7 @@ export const Login = () => {
             rememberMe: false
         },
         validate: (values) => {
-            const errors: FormikErrorType = {}
+            const errors: Partial<Omit<LoginType, 'captcha'>> = {}
             if (!values.email) {
                 errors.email = 'Enter your email!'
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -46,8 +41,17 @@ export const Login = () => {
             }
             return errors
         },
-        onSubmit: values => {
+        onSubmit: (values: LoginType, formikHelpers: FormikHelpers<LoginType>) => {
           login(values)
+              .unwrap()
+              .catch((reason: ResponseType) => {
+                  const {fieldsErrors} = reason
+                  if (fieldsErrors) {
+                      fieldsErrors.forEach((fieldError) => {
+                          formikHelpers.setFieldError(fieldError.field, fieldError.error)
+                      })
+                  }
+              })
         }
     })
     if (isLoggedIn) {

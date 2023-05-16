@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import Task from "../features/todolistsList/todolist/task/Task"
+import Task from "features/todolistsList/tasks/task/Task"
 import {ReduxStoreProviderDecorator} from "app/ReduxStoreProviderDecorator"
 import {TaskPriorities, TaskStatuses} from "common/enums/enums";
 
