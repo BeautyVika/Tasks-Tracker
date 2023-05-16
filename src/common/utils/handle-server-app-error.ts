@@ -1,5 +1,5 @@
-import {Dispatch} from "redux";
-import {setError} from "app/app-reducer";
+import {Dispatch} from "redux"
+import {setError} from "app/app-reducer"
 import {ResponseType} from "common/types/common.types"
 
 /**
