@@ -1,7 +1,6 @@
 import {
-    changeTodolistFilter,
     FilterValuesType,
-    TodolistDomainType,
+    TodolistDomainType, todolistsActions,
     todolistsReducer, todosThunks
 } from './todolists-reducer'
 import { v1 } from 'uuid'
@@ -53,7 +52,7 @@ test('correct filter of todolist should be changed', () => {
 
     let newFilter: FilterValuesType = 'completed'
 
-    const endState = todolistsReducer(startState, changeTodolistFilter({id: todolistId2, filter: newFilter}))
+    const endState = todolistsReducer(startState, todolistsActions.changeTodolistFilter({id: todolistId2, filter: newFilter}))
 
     expect(endState[0].filter).toBe('all')
     expect(endState[1].filter).toBe(newFilter)

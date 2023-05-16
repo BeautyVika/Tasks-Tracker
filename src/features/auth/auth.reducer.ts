@@ -1,9 +1,9 @@
 import {createAppAsyncThunk, handleServerAppError, handleServerNetworkError, thunkTryCatch} from "common/utils"
 import {createSlice} from "@reduxjs/toolkit"
 import {setIsInitialized} from "app/app-reducer"
-import {clearTodosData} from "features/todolistsList/todolists-reducer"
 import {RESULT_CODE} from "common/enums/enums"
 import {authApi, LoginType} from "features/auth/authApi"
+import {todolistsActions} from "features/todolistsList/todolists-reducer"
 
 const login = createAppAsyncThunk<{isLoggedIn: boolean}, LoginType> ('auth/login',
     async(arg, thunkAPI) => {
@@ -41,7 +41,7 @@ const loginOut = createAppAsyncThunk<{isLoggedIn: boolean}, void>('auth/loginOut
         return thunkTryCatch(thunkAPI, async () => {
             const res = await authApi.logOut()
             if (res.data.resultCode === RESULT_CODE.SUCCESS) {
-                dispatch(clearTodosData({todolists: []}))
+                dispatch(todolistsActions.clearTodosData({todolists: []}))
                 return {isLoggedIn: false}
             } else {
                 handleServerAppError(res.data, dispatch)

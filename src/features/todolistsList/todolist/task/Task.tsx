@@ -3,10 +3,10 @@ import Checkbox from "@mui/material/Checkbox"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
 import {tasksThunks} from "../../tasks-reducer"
-import {AppDispatch} from "app/store"
-import {EditableSpan} from "common/components";
-import {TaskStatuses} from "common/enums/enums";
-import {TaskType} from "features/todolistsList/tasksApi";
+import {EditableSpan} from "common/components"
+import {TaskStatuses} from "common/enums/enums"
+import {TaskType} from "features/todolistsList/tasksApi"
+import {useActions} from "common/hooks/useAction"
 
 export type TaskPropsType = {
     task: TaskType
@@ -19,22 +19,22 @@ const Task = memo(({task, todolistId}: TaskPropsType) => {
     // получение таски, 2 способ
     // const taskTl = useSelector<AppRootStateType, TaskType>(state => state.tasks[todolistId].find(t => t.id === task.id) as TaskType)
 
-    const dispatch = AppDispatch()
+    const {removeTask, updateTask} = useActions(tasksThunks)
 
     const onClickHandler = () => {
-        dispatch(tasksThunks.removeTask({todoId: todolistId, taskId: task.id}))
+        removeTask({todoId: todolistId, taskId: task.id})
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked
-        dispatch(tasksThunks.updateTask(
+       updateTask(
             {
                 todoId: todolistId,
                 taskId: task.id,
                 domainModel: {status: newIsDoneValue ? TaskStatuses.Completed : TaskStatuses.New}
-            }))
+            })
     }
     const updateTaskHandler = (updateTitle: string, taskId: string) => {
-        dispatch(tasksThunks.updateTask({todoId: todolistId, taskId, domainModel: {title: updateTitle}}))
+       updateTask({todoId: todolistId, taskId, domainModel: {title: updateTitle}})
     }
     return (
         <li key={task.id} className={task.status === TaskStatuses.Completed ? 'is-done' : ''}>

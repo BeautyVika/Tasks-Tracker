@@ -1,19 +1,16 @@
-import {setError} from "app/app-reducer";
-import {createSlice} from "@reduxjs/toolkit";
-import {
-    clearTodosData,
-    todosThunks
-} from "features/todolistsList/todolists-reducer";
-import {createAppAsyncThunk} from "common/utils/create-app-async-thunk";
-import {handleServerAppError, thunkTryCatch} from "common/utils";
+import {setError} from "app/app-reducer"
+import {createSlice} from "@reduxjs/toolkit"
+import {todolistsActions, todosThunks} from "features/todolistsList/todolists-reducer"
+import {createAppAsyncThunk} from "common/utils/create-app-async-thunk"
+import {handleServerAppError, thunkTryCatch} from "common/utils"
 import {
     AddTaskArgType, RemoveTaskArgType,
     tasksApi,
     TaskType,
     UpdateTaskArgType,
     UpdateTaskModelType
-} from "features/todolistsList/tasksApi";
-import {RESULT_CODE} from "common/enums/enums";
+} from "features/todolistsList/tasksApi"
+import {RESULT_CODE} from "common/enums/enums"
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
@@ -119,7 +116,7 @@ const slice = createSlice({
                     state[tl.id] = []
                 })
             })
-            .addCase(clearTodosData, (state, action) => {
+            .addCase(todolistsActions.clearTodosData, (state, action) => {
                 action.payload.todolists.forEach((tl: any) => {
                     state[tl.id] = []
                 })

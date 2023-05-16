@@ -4,20 +4,21 @@ import TodolistsList from "../features/todolistsList/TodolistsList"
 import {Navigate, Route, Routes} from "react-router-dom"
 import {Login} from "features/auth/Login"
 import {authThunks} from "features/auth/auth.reducer"
-import {AppDispatch, AppUseSelector} from "./store"
+import {AppUseSelector} from "./store"
 import {CircularProgress} from "@mui/material"
 import {selectIsInitialized} from "app/app.selectors"
 import {ButtonAppBar, ErrorSnackbar} from "common/components"
 import './App.css'
+import {useActions} from "common/hooks/useAction"
 
 function App() {
 
     const isInitialized = AppUseSelector(selectIsInitialized)
 
-    const dispatch = AppDispatch()
+    const {me} = useActions(authThunks)
 
     useEffect(() => {
-        dispatch(authThunks.me())
+       me()
     }, [])
 
     if (!isInitialized) {

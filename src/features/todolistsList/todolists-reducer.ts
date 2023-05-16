@@ -1,8 +1,8 @@
 import {RequestStatusType} from "app/app-reducer"
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {createAppAsyncThunk, handleServerAppError, thunkTryCatch} from "common/utils";
-import {RESULT_CODE} from "common/enums/enums";
-import {todolistsApi, TodolistType, UpdateTodolistTitleArgType} from "features/todolistsList/todolistsApi";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit"
+import {createAppAsyncThunk, handleServerAppError, thunkTryCatch} from "common/utils"
+import {RESULT_CODE} from "common/enums/enums"
+import {todolistsApi, TodolistType, UpdateTodolistTitleArgType} from "features/todolistsList/todolistsApi"
 
 export type FilterValuesType = 'all' | 'active' | 'completed'
 
@@ -36,7 +36,7 @@ const deleteTodolist = createAppAsyncThunk<{id: string}, string> ('todo/deleteTo
     async (id,thunkAPI) => {
         const {dispatch, rejectWithValue} = thunkAPI
         return thunkTryCatch(thunkAPI, async () => {
-            dispatch(changeTodolistEntityStatus({id, entityStatus: "loading"}))
+            dispatch(todolistsActions.changeTodolistEntityStatus({id, entityStatus: "loading"}))
             const res = await todolistsApi.deleteTodolist(id)
             if (res.data.resultCode === RESULT_CODE.SUCCESS) {
                 return {id}
@@ -95,5 +95,6 @@ const slice = createSlice({
 })
 
 export const todolistsReducer = slice.reducer
-export const {changeTodolistFilter, changeTodolistEntityStatus, clearTodosData} = slice.actions
+export const todolistsActions = slice.actions
+// export const {changeTodolistFilter, changeTodolistEntityStatus, clearTodosData} = slice.actions
 export const todosThunks = {fetchTodos, addTodolist, deleteTodolist, changeTodolistTitle}

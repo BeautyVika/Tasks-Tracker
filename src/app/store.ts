@@ -5,7 +5,7 @@ import thunkMiddleware, {ThunkDispatch} from "redux-thunk"
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux"
 import {appReducer} from "./app-reducer"
 import {authReducer} from "features/auth/auth.reducer"
-import {configureStore} from "@reduxjs/toolkit";
+import {configureStore} from "@reduxjs/toolkit"
 
 const rootReducer = combineReducers({
     todolists: todolistsReducer,

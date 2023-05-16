@@ -7,20 +7,20 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import LinearProgress from '@mui/material/LinearProgress'
-import {AppDispatch, AppUseSelector} from "app/store"
+import {AppUseSelector} from "app/store"
 import {selectStatus} from "app/app.selectors"
 import {selectIsLoggedIn} from "features/auth/auth.selectors"
 import {authThunks} from "features/auth/auth.reducer";
+import {useActions} from "common/hooks/useAction";
 
 export function ButtonAppBar() {
 
     const status = AppUseSelector(selectStatus)
     const isLoggedIn = AppUseSelector(selectIsLoggedIn)
 
-    const dispatch = AppDispatch()
+    const {loginOut} = useActions(authThunks)
 
-    const logOutHandler = () => dispatch(authThunks.loginOut())
-
+    const logOutHandler = () => loginOut()
 
     return (
         <Box sx={{ flexGrow: 1 }}>

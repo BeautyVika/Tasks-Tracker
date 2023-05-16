@@ -3,12 +3,12 @@ import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Task from "./task/Task"
 import {FilterValuesType} from "../todolists-reducer"
-import {AppDispatch} from "app/store"
 import {tasksThunks} from "../tasks-reducer"
 import {RequestStatusType} from "app/app-reducer"
-import {AddItemForm, EditableSpan, SuperButton} from "common/components";
-import {TaskStatuses} from "common/enums/enums";
-import {TaskType} from "features/todolistsList/tasksApi";
+import {AddItemForm, EditableSpan, SuperButton} from "common/components"
+import {TaskStatuses} from "common/enums/enums"
+import {TaskType} from "features/todolistsList/tasksApi"
+import {useActions} from "common/hooks/useAction"
 
 type TodolistPropsType = {
     id: string
@@ -25,10 +25,10 @@ type TodolistPropsType = {
 const Todolist = memo((props: TodolistPropsType) => {
     //получение тасок todolist
     // const tasksTl = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.id])
-    const dispatch = AppDispatch()
+    const {fetchTasks} = useActions(tasksThunks)
 
     useEffect(() => {
-        dispatch(tasksThunks.fetchTasks(props.id))
+      fetchTasks(props.id)
     }, [])
 
     const addTask = useCallback((title: string) => {
