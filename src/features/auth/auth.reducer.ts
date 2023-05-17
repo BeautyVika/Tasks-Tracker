@@ -1,4 +1,4 @@
-import {createAppAsyncThunk, handleServerAppError, handleServerNetworkError, thunkTryCatch} from "common/utils"
+import {createAppAsyncThunk} from "common/utils"
 import {createSlice} from "@reduxjs/toolkit"
 import {setIsInitialized} from "app/app.reducer"
 import {RESULT_CODE} from "common/enums/enums"
@@ -6,18 +6,15 @@ import {authApi, LoginType} from "features/auth/authApi"
 import {todolistsActions} from "features/todolistsList/todolists/todolists.reducer"
 
 const login = createAppAsyncThunk<{isLoggedIn: boolean}, LoginType> ('auth/login',
-    async(arg, thunkAPI) => {
-        const {dispatch, rejectWithValue} = thunkAPI
-        return thunkTryCatch(thunkAPI, async () => {
+    async(arg, {rejectWithValue}) => {
+
             const res = await authApi.login(arg)
             if (res.data.resultCode === RESULT_CODE.SUCCESS) {
                 return {isLoggedIn: true}
             } else {
                 const isShowAppError = !res.data.fieldsErrors.length
-                handleServerAppError(res.data, dispatch, isShowAppError)
-                return rejectWithValue(null)
+                return rejectWithValue({data: res.data, showGlobalError: isShowAppError})
             }
-        })
 })
 const me = createAppAsyncThunk<{isLoggedIn: boolean}, void>('auth/me',
     async(_, thunkAPI) => {
@@ -27,28 +24,22 @@ const me = createAppAsyncThunk<{isLoggedIn: boolean}, void>('auth/me',
             if (res.data.resultCode === RESULT_CODE.SUCCESS) {
                 return {isLoggedIn: true}
             } else {
-                return rejectWithValue(null)
+                return rejectWithValue({data: res.data, showGlobalError: false})
             }
-        }catch(e: any) {
-            handleServerNetworkError(e, dispatch)
-            return rejectWithValue(null)
-        } finally {
+        }finally {
             dispatch(setIsInitialized({isInitialized: true}))
         }
 })
 const loginOut = createAppAsyncThunk<{isLoggedIn: boolean}, void>('auth/loginOut',
-    async (_, thunkAPI) => {
-        const {dispatch, rejectWithValue} = thunkAPI
-        return thunkTryCatch(thunkAPI, async () => {
+    async (_, {dispatch, rejectWithValue}) => {
+
             const res = await authApi.logOut()
             if (res.data.resultCode === RESULT_CODE.SUCCESS) {
                 dispatch(todolistsActions.clearTodosData({todolists: []}))
                 return {isLoggedIn: false}
             } else {
-                handleServerAppError(res.data, dispatch)
-                return rejectWithValue(null)
+                return rejectWithValue({data: res.data, showGlobalError: true})
             }
-        })
 })
 
 const slice = createSlice({

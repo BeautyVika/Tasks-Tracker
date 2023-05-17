@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FC, KeyboardEvent, memo, useState} from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import {ResponseType} from "common/types/common.types"
+import {RejectValueType} from "common/utils"
 
 type Props = {
     addItem: (newTitle: string) => Promise<any>
@@ -14,12 +14,15 @@ export const AddItemForm: FC<Props> = memo(({addItem, disabled}) => {
     let [error, setError]= useState<string | null>(null)
 
     const addItemHandler = () => {
-        if (title.trim() !== ''){
+        if (title.trim() !== '') {
             addItem(title).then(() => {
                 setTitle('')
             })
-                .catch((err: ResponseType) => {
-                    setError(err.messages[0])
+                .catch((err: RejectValueType) => {
+                    if (err.data) {
+                        const messages = err.data.messages
+                        setError(messages.length ? messages[0] : 'Some error occurred')
+                    }
                 })
         } else {
             setError('Title is required')
