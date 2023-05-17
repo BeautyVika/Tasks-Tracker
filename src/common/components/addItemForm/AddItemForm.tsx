@@ -1,20 +1,20 @@
-import React, {ChangeEvent, KeyboardEvent, memo, useState} from 'react'
+import React, {ChangeEvent, FC, KeyboardEvent, memo, useState} from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 
-type AddItemFormPropsType = {
+type Props = {
     addTask: (newTitle: string) => void
     disabled?: boolean
 }
 
-export const AddItemForm = memo((props: AddItemFormPropsType) => {
+export const AddItemForm: FC<Props> = memo(({addTask, disabled}) => {
 
     let [title, setTitle] = useState('')
     let [error, setError]= useState<string | null>(null)
 
-    const addTask = () => {
+    const addItemHandler = () => {
         if (title.trim() !== ''){
-            props.addTask(title.trim())
+            addTask(title.trim())
             setTitle('')
         } else {
             setError('Title is required')
@@ -26,7 +26,7 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (error) setError(null)
         if (e.key === 'Enter') {
-            addTask();
+            addItemHandler();
         }
     }
    return (
@@ -39,13 +39,12 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
                       value={title}
                       onChange={onChangeHandler}
                       onKeyDown={onKeyPressHandler}
-                      helperText={error}
-                      disabled={props.disabled}/>
+                      disabled={disabled}/>
            <Button variant="contained"
                    size="small"
                    style={{maxWidth: '39px', maxHeight: '39px', minWidth: '39px', minHeight: '39px', marginLeft: '5px'}}
-                   onClick={addTask}
-                   disabled={props.disabled}>
+                   onClick={addItemHandler}
+                   disabled={disabled}>
                +
            </Button>
        </div>

@@ -1,7 +1,7 @@
-import React, {memo} from "react"
+import React, {FC, memo} from "react"
 import Button from "@mui/material/Button"
 
-type SuperButtonType = {
+type Props = {
     variant: "outlined" | "contained"
     size: "small"
     color?: "error"
@@ -9,11 +9,11 @@ type SuperButtonType = {
     title: string
 }
 
-export const SuperButton = memo((props: SuperButtonType) => {
-    return <Button variant={props.variant}
-                   color={props.color}
-                   size={props.size}
-                   onClick={props.onClick}>
-        {props.title}
+export const SuperButton: FC<Props> = memo(({variant, title, onClick, color, size}) => {
+    return <Button variant={variant}
+                   color={color}
+                   size={size}
+                   onClick={onClick}>
+        {title}
     </Button>
 })
