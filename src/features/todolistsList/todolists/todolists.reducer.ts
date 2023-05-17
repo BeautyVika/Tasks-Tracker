@@ -27,8 +27,8 @@ const addTodolist = createAppAsyncThunk<{todolist: TodolistType}, string>('todo/
                 const todolist = res.data.data.item
                 return {todolist}
             } else {
-                handleServerAppError(res.data, dispatch)
-                return rejectWithValue(null)
+                handleServerAppError(res.data, dispatch, false)
+                return rejectWithValue(res.data)
             }
         })
     })
@@ -96,5 +96,4 @@ const slice = createSlice({
 
 export const todolistsReducer = slice.reducer
 export const todolistsActions = slice.actions
-// export const {changeTodolistFilter, changeTodolistEntityStatus, clearTodosData} = slice.actions
 export const todosThunks = {fetchTodos, addTodolist, deleteTodolist, changeTodolistTitle}

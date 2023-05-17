@@ -1,4 +1,4 @@
-import React, {ChangeEvent, memo} from 'react'
+import React, {ChangeEvent, FC, memo} from 'react'
 import Checkbox from "@mui/material/Checkbox"
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from "@mui/icons-material/Delete"
@@ -8,11 +8,11 @@ import {TaskStatuses} from "common/enums/enums"
 import {TaskType} from "features/todolistsList/tasks/tasksApi"
 import {useActions} from "common/hooks/useAction"
 
-export type TaskPropsType = {
+export type Props = {
     task: TaskType
     todolistId: string
 }
-const Task = memo(({task, todolistId}: TaskPropsType) => {
+const Task: FC<Props> = memo(({task, todolistId}) => {
 
     // получение таски, 1 способ
     // const taskTl = useSelector<AppRootStateType,TaskType>(state => state.tasks[todolistId].filter(t => t.id === tasks.id)[0])

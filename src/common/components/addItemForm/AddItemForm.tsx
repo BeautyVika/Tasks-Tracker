@@ -1,21 +1,26 @@
 import React, {ChangeEvent, FC, KeyboardEvent, memo, useState} from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
+import {ResponseType} from "common/types/common.types"
 
 type Props = {
-    addTask: (newTitle: string) => void
+    addItem: (newTitle: string) => Promise<any>
     disabled?: boolean
 }
 
-export const AddItemForm: FC<Props> = memo(({addTask, disabled}) => {
+export const AddItemForm: FC<Props> = memo(({addItem, disabled}) => {
 
     let [title, setTitle] = useState('')
     let [error, setError]= useState<string | null>(null)
 
     const addItemHandler = () => {
         if (title.trim() !== ''){
-            addTask(title.trim())
-            setTitle('')
+            addItem(title).then(() => {
+                setTitle('')
+            })
+                .catch((err: ResponseType) => {
+                    setError(err.messages[0])
+                })
         } else {
             setError('Title is required')
         }
@@ -31,8 +36,8 @@ export const AddItemForm: FC<Props> = memo(({addTask, disabled}) => {
     }
    return (
        <div>
-           <TextField id="outlined-basic"
-                      label={error ? 'Title is required' : 'type your text...'}
+           <TextField label="Title"
+                      helperText={error}
                       variant="outlined"
                       size="small"
                       error={!!error}
@@ -40,6 +45,7 @@ export const AddItemForm: FC<Props> = memo(({addTask, disabled}) => {
                       onChange={onChangeHandler}
                       onKeyDown={onKeyPressHandler}
                       disabled={disabled}/>
+
            <Button variant="contained"
                    size="small"
                    style={{maxWidth: '39px', maxHeight: '39px', minWidth: '39px', minHeight: '39px', marginLeft: '5px'}}

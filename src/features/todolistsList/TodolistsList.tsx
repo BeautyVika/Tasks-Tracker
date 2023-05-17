@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect} from 'react'
+import React, {FC, useEffect} from 'react'
 import {AppUseSelector} from "app/store"
 import {todosThunks} from "features/todolistsList/todolists/todolists.reducer"
 import Grid from "@mui/material/Grid"
@@ -24,9 +24,9 @@ const TodolistsList:FC = () => {
        fetchTodos({})
     }, [])
 
-    const addNewTodolist = useCallback((title: string) => {
-       addTodolist(title)
-    }, [])
+    const addNewTodolist =(title: string) => {
+       return addTodolist(title).unwrap()
+    }
 
     if (!isLoggedIn) {
         return <Navigate to={'/auth'}/>
@@ -35,7 +35,7 @@ const TodolistsList:FC = () => {
     return (
         <>
             <Grid container style={{padding: '20px'}}>
-                <AddItemForm addTask={addNewTodolist}/>
+                <AddItemForm addItem={addNewTodolist}/>
             </Grid>
             <Grid container spacing={3}>
                 {todolists.map(todolist => {

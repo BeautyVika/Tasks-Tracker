@@ -1,20 +1,20 @@
-import React, {ChangeEvent, memo, useState} from 'react'
+import React, {ChangeEvent, FC, memo, useState} from 'react'
 
-type EditableSpanPropsType = {
+type Props = {
     title: string
     callback: (title: string) => void
     disabled?: boolean
 }
 
-export const EditableSpan = memo((props: EditableSpanPropsType) => {
+export const EditableSpan: FC<Props> = memo(({title, disabled, callback}) => {
     const [edit, setEdit] = useState(false)
-    let [updateTitle, setUpdateTitle] = useState(props.title)
+    let [updateTitle, setUpdateTitle] = useState(title)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setUpdateTitle(e.currentTarget.value)
     }
     const addTask = () => {
-        props.callback(updateTitle)
+        callback(updateTitle)
     }
 
     const onDoubleClickHandler = () => {
@@ -24,8 +24,8 @@ export const EditableSpan = memo((props: EditableSpanPropsType) => {
     return (
        edit
             ? <input value={updateTitle} onChange={onChangeHandler} onBlur={onDoubleClickHandler}
-                     disabled={props.disabled}
+                     disabled={disabled}
                      autoFocus/>
-            : <><span onDoubleClick={onDoubleClickHandler}>{props.title}</span></>
+            : <><span onDoubleClick={onDoubleClickHandler}>{title}</span></>
     )
 })

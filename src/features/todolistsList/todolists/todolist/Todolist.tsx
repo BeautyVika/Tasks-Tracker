@@ -1,4 +1,4 @@
-import React, {FC, memo, useCallback, useEffect} from 'react'
+import React, {FC, memo, useEffect} from 'react'
 import {FilterValuesType} from "features/todolistsList/todolists/todolists.reducer"
 import {tasksThunks} from "features/todolistsList/tasks/tasks.reducer"
 import {RequestStatusType} from "app/app.reducer"
@@ -27,9 +27,9 @@ const Todolist: FC<Props> = memo(({id, filter, title, entityStatus, tasks}) => {
       fetchTasks(id)
     }, [])
 
-    const addNewTask = useCallback((title: string) => {
-        addTask({todolistId: id, title})
-    }, [addTask, id])
+    const addNewTask = (title: string) => {
+        return addTask({todolistId: id, title}).unwrap()
+    }
 
 
 
@@ -37,7 +37,7 @@ const Todolist: FC<Props> = memo(({id, filter, title, entityStatus, tasks}) => {
         <div>
             <TodolistTitle title={title} entityStatus={entityStatus} id={id}/>
 
-            <AddItemForm addTask={addNewTask} disabled={entityStatus === 'loading'}/>
+            <AddItemForm addItem={addNewTask} disabled={entityStatus === 'loading'}/>
 
             <Tasks tasks={tasks} filter={filter} id={id}/>
 
