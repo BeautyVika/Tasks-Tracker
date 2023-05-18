@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { ActionCreatorsMapObject, bindActionCreators } from 'redux'
-import {AppDispatch} from "app/store"
+import { AppDispatch } from 'app/store'
 
 export const useActions = <T extends ActionCreatorsMapObject>(actions: T) => {
     const dispatch = AppDispatch()
@@ -12,8 +12,14 @@ export const useActions = <T extends ActionCreatorsMapObject>(actions: T) => {
 }
 
 // Types
-type IsValidArg<T> = T extends object ? (keyof T extends never ? false : true) : true
-type ActionCreatorResponse<T extends (...args: any[]) => any> = ReturnType<ReturnType<T>>
+type IsValidArg<T> = T extends object
+    ? keyof T extends never
+        ? false
+        : true
+    : true
+type ActionCreatorResponse<T extends (...args: any[]) => any> = ReturnType<
+    ReturnType<T>
+>
 type ReplaceReturnType<T, TNewReturn> = T extends (a: infer A) => infer R
     ? IsValidArg<A> extends true
         ? (a: A) => TNewReturn

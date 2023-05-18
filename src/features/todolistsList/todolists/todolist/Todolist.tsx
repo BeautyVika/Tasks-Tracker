@@ -1,13 +1,13 @@
-import React, {FC, memo, useEffect} from 'react'
-import {FilterValuesType} from "features/todolistsList/todolists/todolists.reducer"
-import {tasksThunks} from "features/todolistsList/tasks/tasks.reducer"
-import {RequestStatusType} from "app/app.reducer"
-import {AddItemForm} from "common/components"
-import {useActions} from "common/hooks/useAction"
-import {TaskType} from "features/todolistsList/tasks/tasksApi"
-import {FilterTasksButtons} from "features/todolistsList/todolists/todolist/filterTasksButtons/FilterTasksButtons"
-import {Tasks} from "features/todolistsList/tasks/Tasks"
-import {TodolistTitle} from "features/todolistsList/todolists/todolist/todolistTitle/TodolistTitle"
+import React, { FC, memo, useEffect } from 'react'
+import { FilterValuesType } from 'features/todolistsList/todolists/todolists.reducer'
+import { tasksThunks } from 'features/todolistsList/tasks/tasks.reducer'
+import { RequestStatusType } from 'app/app.reducer'
+import { AddItemForm } from 'common/components'
+import { useActions } from 'common/hooks/useAction'
+import { TaskType } from 'features/todolistsList/tasks/tasksApi'
+import { FilterTasksButtons } from 'features/todolistsList/todolists/todolist/filterTasksButtons/FilterTasksButtons'
+import { Tasks } from 'features/todolistsList/tasks/Tasks'
+import { TodolistTitle } from 'features/todolistsList/todolists/todolist/todolistTitle/TodolistTitle'
 
 type Props = {
     id: string
@@ -17,36 +17,42 @@ type Props = {
     entityStatus: RequestStatusType
 }
 
-const Todolist: FC<Props> = memo(({id, filter, title, entityStatus, tasks}) => {
-    //получение тасок todolists
-    // const tasksTl = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.id])
+const Todolist: FC<Props> = memo(
+    ({ id, filter, title, entityStatus, tasks }) => {
+        //получение тасок todolists
+        // const tasksTl = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.id])
 
-    const {fetchTasks, addTask} = useActions(tasksThunks)
+        const { fetchTasks, addTask } = useActions(tasksThunks)
 
-    useEffect(() => {
-      fetchTasks(id)
-    }, [])
+        useEffect(() => {
+            fetchTasks(id)
+        }, [])
 
-    const addNewTask = (title: string) => {
-        return addTask({todolistId: id, title}).unwrap()
-    }
+        const addNewTask = (title: string) => {
+            return addTask({ todolistId: id, title }).unwrap()
+        }
 
-
-
-    return (
-        <div>
-            <TodolistTitle title={title} entityStatus={entityStatus} id={id}/>
-
-            <AddItemForm addItem={addNewTask} disabled={entityStatus === 'loading'}/>
-
-            <Tasks tasks={tasks} filter={filter} id={id}/>
-
+        return (
             <div>
-                <FilterTasksButtons filter={filter} id={id} />
+                <TodolistTitle
+                    title={title}
+                    entityStatus={entityStatus}
+                    id={id}
+                />
+
+                <AddItemForm
+                    addItem={addNewTask}
+                    disabled={entityStatus === 'loading'}
+                />
+
+                <Tasks tasks={tasks} filter={filter} id={id} />
+
+                <div>
+                    <FilterTasksButtons filter={filter} id={id} />
+                </div>
             </div>
-        </div>
-    )
-})
+        )
+    }
+)
 
 export default Todolist
-

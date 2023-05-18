@@ -1,9 +1,9 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 const initialState = {
     status: 'idle' as RequestStatusType,
     error: null as null | string,
-    isInitialized: false
+    isInitialized: false,
 }
 
 export type AppInitialStateType = typeof initialState
@@ -13,17 +13,23 @@ const slice = createSlice({
     name: 'app',
     initialState,
     reducers: {
-        setStatus: (state, action: PayloadAction<{status: RequestStatusType}>) => {
+        setStatus: (
+            state,
+            action: PayloadAction<{ status: RequestStatusType }>
+        ) => {
             state.status = action.payload.status
         },
-        setError: (state, action: PayloadAction<{error: null | string}>) => {
+        setError: (state, action: PayloadAction<{ error: null | string }>) => {
             state.error = action.payload.error
         },
-        setIsInitialized: (state, action: PayloadAction<{isInitialized: boolean}>) => {
+        setIsInitialized: (
+            state,
+            action: PayloadAction<{ isInitialized: boolean }>
+        ) => {
             state.isInitialized = action.payload.isInitialized
-        }
+        },
     },
-    extraReducers: builder => {
+    extraReducers: (builder) => {
         builder
             .addMatcher(
                 (action) => {
@@ -34,15 +40,19 @@ const slice = createSlice({
                 }
             )
             .addMatcher(
-                action => action.type.endsWith('/rejected'),
+                (action) => action.type.endsWith('/rejected'),
                 (state, action) => {
                     const { payload, error } = action
                     if (payload) {
                         if (payload.showGlobalError) {
-                            state.error = payload.data.messages.length ? payload.data.messages[0] : 'Some error occurred'
+                            state.error = payload.data.messages.length
+                                ? payload.data.messages[0]
+                                : 'Some error occurred'
                         }
                     } else {
-                        state.error = error.message ? error.message : 'Some error occurred'
+                        state.error = error.message
+                            ? error.message
+                            : 'Some error occurred'
                     }
                     state.status = 'failed'
                 }
@@ -55,8 +65,8 @@ const slice = createSlice({
                     state.status = 'succeeded'
                 }
             )
-    }
+    },
 })
 
 export const appReducer = slice.reducer
-export const {setStatus, setError, setIsInitialized} = slice.actions
+export const { setStatus, setError, setIsInitialized } = slice.actions

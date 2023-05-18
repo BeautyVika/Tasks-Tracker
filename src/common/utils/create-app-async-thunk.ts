@@ -1,6 +1,6 @@
-import {createAsyncThunk} from "@reduxjs/toolkit"
-import {AppDispatchType, AppRootStateType} from "app/store"
-import {ResponseType} from "common/types/common.types"
+import { createAsyncThunk } from '@reduxjs/toolkit'
+import { AppDispatchType, AppRootStateType } from 'app/store'
+import { ResponseType } from 'common/types/common.types'
 
 /**
  * The wrapper function, thanks to it we can not type the error (rejectValue), dispatch (dispatch), state (state) every time.
